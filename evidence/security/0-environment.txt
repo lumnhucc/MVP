@@ -1,0 +1,37 @@
+Contract:
+ProfessionalLicenseRegistry.sol
+
+Test framework:
+Remix Solidity Unit Testing
+
+Compiler:
+Solidity compiler / solc: 0.8.34
+
+Solidity pragma:
+0.8.34
+
+Optimization:
+Disable
+
+Optimizer runs:
+N/A
+
+EVM:
+default (osaka)
+
+Test network:
+Remix VM Osaka
+
+Chain ID:
+N/A
+
+Deployment/Test account:
+Account 1 / 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4 / admin
+Account 2 / 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2 / publisher
+Account 3 / 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db / owner; publisher
+
+Contract address:
+0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+
+Unit-test result:
+16 test cases / 16 PASS / 0 FAIL

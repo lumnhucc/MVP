@@ -1,0 +1,157 @@
+#1 Non-admin cannot register publisher
+[vm]from: 0xAb8...35cb2to: ProfessionalLicenseRegistry.registerPublisher(address) 0x7C4...141F3value: 0 weidata: 0x333...c02dblogs: 0hash: 0x309...dafa6
+transact to ProfessionalLicenseRegistry.registerPublisher errored: Error occurred: Error occurred: revert.
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized admin".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+Error occurred: revert.
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized admin".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+#2 Non-publisher → issueLicense() → REVERT
+
+[vm]from: 0xAb8...35cb2to: ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) 0x7C4...141F3value: 0 weidata: 0xd1a...00000logs: 0hash: 0xebe...6cdf5
+transact to ProfessionalLicenseRegistry.issueLicense errored: Error occurred: Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+
+Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+#3 Non-publisher → deactivateLicense → REVERT.
+[vm]from: 0xAb8...35cb2to: ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) 0x7C4...141F3value: 0 weidata: 0xd1a...00000logs: 1hash: 0x8f1...334e0
+[vm]from: 0x4B2...C02dbto: ProfessionalLicenseRegistry.deactivateLicense(uint256) 0x7C4...141F3value: 0 weidata: 0x662...00001logs: 0hash: 0x0b3...70426
+transact to ProfessionalLicenseRegistry.deactivateLicense errored: Error occurred: Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+
+Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+#4 Non-publisher → reactivate → REVERT
+[call]from: 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2to: ProfessionalLicenseRegistry.licenses(uint256)data: 0x337...00001
+from	0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2
+to	ProfessionalLicenseRegistry.licenses(uint256) 0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+execution cost	11972 gas (Cost only applies when called by a contract)
+input	0x337...00001
+output	0x0000000000000000000000004b20993bc481177ec7e8f571cecae8a9e22c02db000000000000000000000000ab8483f64d9c6d1ecf9b849ae677dd3315835cb2000000000000000000000000000000000000000000000000000000006a854bd100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+decoded input	{
+	"uint256 ": "1"
+}
+decoded output	{
+	"0": "address: owner 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
+	"1": "address: issuer 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
+	"2": "uint256: issueDate 1787120593",
+	"3": "uint256: expiry 0",
+	"4": "uint8: status 1"
+}
+logs	[]
+raw logs	[]
+[vm]from: 0x4B2...C02dbto: ProfessionalLicenseRegistry.reactivateLicense(uint256) 0x7C4...141F3value: 0 weidata: 0xa72...00001logs: 0hash: 0xd94...a6980
+transact to ProfessionalLicenseRegistry.reactivateLicense errored: Error occurred: Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+
+Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not authorized publisher".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+#5 Publisher B ≠ Issuer A → deactivate → REVERT
+[call]from: 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02dbto: ProfessionalLicenseRegistry.licenses(uint256)data: 0x337...00002
+from	0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db
+to	ProfessionalLicenseRegistry.licenses(uint256) 0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+execution cost	11972 gas (Cost only applies when called by a contract)
+input	0x337...00002
+output	0x0000000000000000000000004b20993bc481177ec7e8f571cecae8a9e22c02db000000000000000000000000ab8483f64d9c6d1ecf9b849ae677dd3315835cb2000000000000000000000000000000000000000000000000000000006a854bd100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+decoded input	{
+	"uint256 ": "2"
+}
+decoded output	{
+	"0": "address: owner 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
+	"1": "address: issuer 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
+	"2": "uint256: issueDate 1787120593",
+	"3": "uint256: expiry 0",
+	"4": "uint8: status 0"
+}
+logs	[]
+raw logs	[]
+[vm]from: 0x4B2...C02dbto: ProfessionalLicenseRegistry.deactivateLicense(uint256) 0x7C4...141F3value: 0 weidata: 0x662...00002logs: 0hash: 0xa50...92a6c
+transact to ProfessionalLicenseRegistry.deactivateLicense errored: Error occurred: Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not license issuer".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+
+Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not license issuer".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+#6 Publisher B ≠ Issuer A → reactivate → REVERT
+[call]from: 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02dbto: ProfessionalLicenseRegistry.licenses(uint256)data: 0x337...00001
+from	0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db
+to	ProfessionalLicenseRegistry.licenses(uint256) 0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+execution cost	11972 gas (Cost only applies when called by a contract)
+input	0x337...00001
+output	0x0000000000000000000000004b20993bc481177ec7e8f571cecae8a9e22c02db000000000000000000000000ab8483f64d9c6d1ecf9b849ae677dd3315835cb2000000000000000000000000000000000000000000000000000000006a854bd100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+decoded input	{
+	"uint256 ": "1"
+}
+decoded output	{
+	"0": "address: owner 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db",
+	"1": "address: issuer 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2",
+	"2": "uint256: issueDate 1787120593",
+	"3": "uint256: expiry 0",
+	"4": "uint8: status 1"
+}
+logs	[]
+raw logs	[]
+[vm]from: 0x4B2...C02dbto: ProfessionalLicenseRegistry.reactivateLicense(uint256) 0x7C4...141F3value: 0 weidata: 0xa72...00001logs: 0hash: 0xcfa...a8073
+transact to ProfessionalLicenseRegistry.reactivateLicense errored: Error occurred: Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not license issuer".
+If the transaction failed for not having enough gas, try increasing the gas limit gently..
+
+Error occurred: revert.
+
+revert
+	The transaction has been reverted to the initial state.
+Reason provided by the contract: "Not license issuer".
+If the transaction failed for not having enough gas, try increasing the gas limit gently.
+
+If the transaction failed for not having enough gas, try increasing the gas limit gently.

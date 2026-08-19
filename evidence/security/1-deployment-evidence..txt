@@ -1,0 +1,39 @@
+Contract:
+ProfessionalLicenseRegistry
+
+Network:
+Remix VM Osaka
+
+Deployment status:
+1 — Transaction mined and execution completed
+
+Deployer:
+0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
+
+Contract address:
+0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+
+Transaction hash:
+0x7ced822d3d5bd8d5e81900cda3447f4735f97fe04f1aa5a7fae6e15f0fe51f12
+
+Block number:
+71
+
+Transaction cost:
+1,682,994 gas
+
+Execution cost:
+1,518,810 gas
+
+-----------------------------------------------------------------------------
+
+[vm]from: 0x5B3...eddC4to: ProfessionalLicenseRegistry.(constructor)value: 0 weidata: 0x608...20033logs: 0hash: 0x7ce...51f12
+status	1 Transaction mined and execution completed
+transaction hash	0x7ced822d3d5bd8d5e81900cda3447f4735f97fe04f1aa5a7fae6e15f0fe51f12
+block hash	0x01dc573faf457998ff4d5b74e36315bbc26d3420f91bedfee64ad45d0da0ffbb
+block number	71
+contract address	0x7C4e30a43ecC4d3231b5B07ed082329020D141F3
+from	0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
+to	ProfessionalLicenseRegistry.(constructor)
+transaction cost	1682994 gas
+execution cost	1518810 gas
