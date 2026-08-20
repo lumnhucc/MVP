@@ -1,0 +1,109 @@
+1. Mục tiêu
+
+Đánh giá các kiểm soát bảo mật đối với vòng đời của Professional License sau khi được phát hành, bao gồm thay đổi trạng thái, ảnh hưởng của qualification và các điều kiện hết hạn.
+
+Phần này sử dụng lại các kết quả unit test đã thực hiện, không tạo lại các test case đã có.
+
+2. License lifecycle
+
+Test:
+Test license lifecycle
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Các chuyển đổi trạng thái chính của License trong lifecycle đã được unit test kiểm chứng.
+
+3. Deactivation và reactivation
+
+Các chức năng:
+deactivateLicense(uint256)
+reactivateLicense(uint256)
+
+Kiểm soát quyền:
+Các thao tác này yêu cầu caller có quyền phù hợp theo authorization model.
+
+Evidence:
+authorization-negative-test.txt
+unit-test-report.txt
+
+Kết quả:
+Các trường hợp unauthorized caller đã được kiểm chứng là bị từ chối.
+
+Kết luận:
+Việc thay đổi trạng thái License không được mở cho caller không có quyền.
+
+4. Qualification lifecycle ảnh hưởng đến License
+
+Test:
+Test qualification lifecycle affects license
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Ảnh hưởng của trạng thái qualification đến License trong lifecycle đã được kiểm chứng.
+
+5. License expiry
+
+Test:
+Test license expiry
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Điều kiện expiry của License đã được kiểm chứng trong unit test.
+
+6. Qualification expiry
+
+Test:
+Test qualification expiry
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Ảnh hưởng của qualification expiry đến trạng thái/khả năng sử dụng License đã được kiểm chứng theo test case hiện có.
+
+7. Các vấn đề chưa kết luận
+
+Các evidence hiện có chưa đủ để kết luận về:
+
+- Cơ chế tự động cập nhật trạng thái theo thời gian mà không có transaction.
+- Hành vi lifecycle khi có nhiều transaction đồng thời.
+- Khả năng chống thao túng timestamp ở môi trường blockchain thực tế.
+- Các vấn đề liên quan đến key management ngoài authorization của smart contract.
+
+Các nội dung trên nằm ngoài phạm vi evidence đã thực hiện ở bước này.
+
+8. Kết luận
+
+Các thành phần chính của License lifecycle đã được kiểm chứng:
+
+- License lifecycle.
+- Deactivation/reactivation authorization.
+- Ảnh hưởng của qualification lifecycle.
+- License expiry.
+- Qualification expiry.
+
+Không phát hiện trường hợp unauthorized caller thay đổi lifecycle của License trong các evidence đã ghi nhận.
+
+Sử dụng lại unit-test và authorization evidence hiện có, không tạo lại test/evidence mới.

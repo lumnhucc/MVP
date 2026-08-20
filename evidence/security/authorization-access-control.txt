@@ -1,0 +1,133 @@
+1. Mục tiêu
+
+Đánh giá cơ chế kiểm soát quyền truy cập của ProfessionalLicenseRegistry đối với các thao tác quản trị, phát hành và thay đổi trạng thái License.
+
+Phần này sử dụng lại các evidence đã được thực hiện trong unit test và negative authorization test, không thực hiện lại các transaction đã kiểm chứng.
+
+
+2. Admin authorization
+
+Chức năng:
+registerPublisher(address)
+
+Yêu cầu quyền:
+Chỉ admin được phép đăng ký publisher.
+
+Evidence:
+authorization-negative-test.txt
+
+Kết quả:
+Khi caller không phải admin gọi registerPublisher, transaction bị revert với reason:
+
+"Not authorized admin"
+
+Kết luận:
+Admin-only access control hoạt động đúng theo thiết kế.
+
+
+3. Publisher authorization — issueLicense
+
+Chức năng:
+issueLicense(address,uint256,uint256[])
+
+Yêu cầu quyền:
+Chỉ publisher được phép issue License.
+
+Evidence:
+authorization-negative-test.txt
+
+Kết quả:
+Khi caller không phải publisher gọi issueLicense, transaction bị revert với reason:
+
+"Not authorized publisher"
+
+Kết luận:
+Publisher-only access control cho việc phát hành License hoạt động đúng theo thiết kế.
+
+
+4. Publisher authorization — deactivateLicense
+
+Chức năng:
+deactivateLicense(uint256)
+
+Yêu cầu quyền:
+Caller phải là publisher và đồng thời phải là issuer của License.
+
+Evidence:
+negative authorization transaction
+
+Kết quả:
+- Non-publisher gọi deactivateLicense → revert với:
+  "Not authorized publisher"
+- Publisher nhưng không phải issuer của License → revert với:
+  "Not license issuer"
+
+Kết luận:
+Cả lớp kiểm soát publisher và issuer đều được kiểm chứng.
+
+
+5. Publisher authorization — reactivateLicense
+
+Chức năng:
+reactivateLicense(uint256)
+
+Yêu cầu quyền:
+Caller phải là publisher và đồng thời phải là issuer của License.
+
+Evidence:
+negative authorization transaction
+
+Kết quả:
+- Non-publisher gọi reactivateLicense → revert với:
+  "Not authorized publisher"
+- Publisher nhưng không phải issuer của License → revert với:
+  "Not license issuer"
+
+Kết luận:
+Cả lớp kiểm soát publisher và issuer đều được kiểm chứng.
+
+
+6. Tổng hợp authorization controls
+
+Control:
+Admin
+Action:
+registerPublisher
+Unauthorized result:
+Revert — "Not authorized admin"
+
+Control:
+Publisher
+Action:
+issueLicense
+Unauthorized result:
+Revert — "Not authorized publisher"
+
+Control:
+Publisher + Issuer
+Action:
+deactivateLicense
+Unauthorized result:
+Revert — "Not authorized publisher" / "Not license issuer"
+
+Control:
+Publisher + Issuer
+Action:
+reactivateLicense
+Unauthorized result:
+Revert — "Not authorized publisher" / "Not license issuer"
+
+
+7. Kết luận
+
+Các authorization control chính của ProfessionalLicenseRegistry đã được kiểm chứng bằng negative test và transaction evidence.
+
+Kết quả cho thấy:
+- Non-admin không thể đăng ký publisher.
+- Non-publisher không thể issue License.
+- Non-publisher không thể deactivate/reactivate License.
+- Publisher không phải issuer không thể deactivate/reactivate License.
+
+Không phát hiện trường hợp unauthorized caller thực hiện thành công các thao tác được kiểm chứng.
+
+Không cần tạo lại test/evidence riêng cho 17.1 vì các trường hợp này đã được kiểm chứng trong unit-test/negative-authorization evidence.

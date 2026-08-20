@@ -1,0 +1,103 @@
+1. Mục tiêu
+
+Đánh giá các kiểm soát bảo mật liên quan đến quá trình phát hành Professional License.
+
+Phần này sử dụng lại các kết quả unit test và authorization-negative test đã thực hiện, không tạo lại các test case đã có.
+
+2. Publisher authorization
+
+Chức năng:
+issueLicense(...)
+
+Yêu cầu quyền:
+Chỉ publisher được ủy quyền mới được phép phát hành License.
+
+Evidence:
+authorization-negative-test.txt
+unit-test-report.txt
+
+Kết quả:
+Trường hợp caller không có quyền publisher bị từ chối bằng transaction revert.
+
+Kết luận:
+Publisher authorization được kiểm soát trước thao tác phát hành.
+
+3. License issuance validation
+
+Các test liên quan:
+- Test issue qualification
+- Test verify qualification
+- Test issue and verify professional license
+- Test requirement checks
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Các điều kiện cần thiết cho quá trình phát hành đã được kiểm chứng trong unit test.
+
+4. Requirement checks
+
+Test:
+Test requirement checks
+
+Kết quả:
+PASS
+
+Kết luận:
+Requirement validation được thực hiện trong flow phát hành và đã được unit test kiểm chứng.
+
+5. Qualification và License linkage
+
+Các test:
+- Test issue qualification
+- Test verify qualification
+- Test issue and verify professional license
+
+Kết quả:
+PASS
+
+Kết luận:
+Mối quan hệ qualification → License đã được kiểm chứng trong test.
+
+6. License lifecycle sau issuance
+
+Các test:
+- Test qualification lifecycle affects license
+- Test license expiry
+- Test qualification expiry
+- Test license lifecycle
+
+Kết quả:
+PASS
+
+Kết luận:
+Trạng thái và hiệu lực của License sau khi phát hành được kiểm chứng thông qua các lifecycle test.
+
+7. Các vấn đề chưa kết luận ở mục này
+
+Các evidence hiện có chưa đủ để kết luận về:
+- Frontend/UI validation trước khi gửi transaction.
+- Chống replay ở tầng ngoài contract.
+- Key management của publisher.
+- Gas exhaustion dưới tải lớn.
+- Tính đúng đắn của dữ liệu đầu vào ngoài các requirement đã được test.
+
+Các nội dung trên không được đánh giá là lỗi trong mục 17.2; chỉ nằm ngoài evidence hiện có.
+
+8. Kết luận
+
+Các kiểm soát chính của quá trình phát hành License đã được kiểm chứng:
+- Chỉ publisher được ủy quyền mới được issue License.
+- Qualification issuance và verification đã được test.
+- Requirement checks đã được test.
+- Professional License issuance và verification đã được test.
+- Ảnh hưởng của qualification lifecycle và expiry đến License đã được test.
+
+Không phát hiện trường hợp unauthorized publisher thực hiện thành công thao tác issue License trong các evidence đã ghi nhận.
+
+Không tạo lại test/evidence mới; sử dụng lại evidence từ unit-test và authorization-negative test.

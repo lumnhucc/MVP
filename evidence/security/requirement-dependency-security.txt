@@ -1,0 +1,112 @@
+1. Mục tiêu
+
+Đánh giá các kiểm soát liên quan đến requirement và dependency của ProfessionalLicenseRegistry trong quá trình xác minh qualification và phát hành License.
+
+Phần này sử dụng lại các kết quả unit test đã thực hiện, không tạo lại các test case đã có.
+
+2. Requirement checks
+
+Test:
+Test requirement checks
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Các requirement cần thiết cho flow phát hành đã được kiểm tra trước khi License được xử lý theo logic của contract.
+
+3. Multiple requirements
+
+Test:
+Test multiple requirements
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Contract đã được kiểm chứng với trường hợp có nhiều requirement thay vì chỉ một requirement đơn lẻ.
+
+Điều này xác nhận logic xử lý nhiều requirement đã được kiểm thử trong phạm vi test case hiện có.
+
+4. Qualification verification
+
+Các test:
+- Test issue qualification
+- Test verify qualification
+- Test issue and verify professional license
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Qualification được sử dụng trong flow kiểm tra trước/sau khi phát hành License đã được unit test kiểm chứng.
+
+5. Qualification lifecycle dependency
+
+Test:
+Test qualification lifecycle affects license
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Sự phụ thuộc giữa qualification lifecycle và trạng thái/hiệu lực của License đã được kiểm chứng.
+
+6. Qualification expiry dependency
+
+Test:
+Test qualification expiry
+
+Kết quả:
+PASS
+
+Evidence:
+ProfessionalLicenseRegistry_test.sol
+unit-test-report.txt
+
+Kết luận:
+Ảnh hưởng của qualification expiry đến License đã được kiểm chứng trong test case hiện có.
+
+7. Phạm vi dependency chưa được đánh giá
+
+Các evidence hiện có chỉ cho phép đánh giá dependency ở mức logic bên trong smart contract.
+
+Chưa có evidence đủ để kết luận về:
+
+- Dependency của frontend/backend.
+- Dependency của external service hoặc oracle.
+- Package/library dependency ngoài source contract hiện tại.
+- Khả năng một external dependency bị thay đổi hoặc ngừng hoạt động.
+- Security của private key hoặc infrastructure vận hành publisher/admin.
+
+Các nội dung trên không được đánh giá là lỗi; chúng nằm ngoài phạm vi evidence của 17.4.
+
+8. Kết luận
+
+Các dependency chính trong logic qualification → requirement → License đã được kiểm chứng thông qua unit test:
+
+- Requirement checks.
+- Multiple requirements.
+- Qualification issuance/verification.
+- Qualification lifecycle ảnh hưởng đến License.
+- Qualification expiry ảnh hưởng đến License.
+
+Không phát hiện lỗi trong các dependency logic được kiểm chứng bởi các test hiện có.
+
+Sử dụng lại unit-test evidence và không tạo lại test/evidence mới.

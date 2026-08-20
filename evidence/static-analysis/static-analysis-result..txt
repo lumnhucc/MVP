@@ -1,0 +1,416 @@
+Block timestamp:
+Use of "block.timestamp": "block.timestamp" can be influenced by miners to a certain degree. That means that a miner can "choose" the block.timestamp, to a certain degree, to change the outcome of a transaction in the mined block.
+more
+Pos: 187:23:
+Block timestamp:
+Use of "block.timestamp": "block.timestamp" can be influenced by miners to a certain degree. That means that a miner can "choose" the block.timestamp, to a certain degree, to change the outcome of a transaction in the mined block.
+more
+Pos: 279:0:
+Block timestamp:
+Use of "block.timestamp": "block.timestamp" can be influenced by miners to a certain degree. That means that a miner can "choose" the block.timestamp, to a certain degree, to change the outcome of a transaction in the mined block.
+more
+Pos: 420:27:
+Gas costs:
+Gas requirement of function ProfessionalLicenseRegistry.issueLicense is infinite: If the gas requirement of a function is higher than the block gas limit, it cannot be executed. Please avoid loops in your functions or actions that modify large areas of storage (this includes clearing or copying arrays in storage)
+Pos: 153:7:
+Gas costs:
+Gas requirement of function ProfessionalLicenseRegistry.checkLicenseRequirements is infinite: If the gas requirement of a function is higher than the block gas limit, it cannot be executed. Please avoid loops in your functions or actions that modify large areas of storage (this includes clearing or copying arrays in storage)
+Pos: 294:3:
+Gas costs:
+Gas requirement of function ProfessionalLicenseRegistry.deactivateLicense is infinite: If the gas requirement of a function is higher than the block gas limit, it cannot be executed. Please avoid loops in your functions or actions that modify large areas of storage (this includes clearing or copying arrays in storage)
+Pos: 314:6:
+Gas costs:
+Gas requirement of function ProfessionalLicenseRegistry.reactivateLicense is infinite: If the gas requirement of a function is higher than the block gas limit, it cannot be executed. Please avoid loops in your functions or actions that modify large areas of storage (this includes clearing or copying arrays in storage)
+Pos: 351:20:
+Gas costs:
+Gas requirement of function ProfessionalLicenseRegistry.verifyLicense is infinite: If the gas requirement of a function is higher than the block gas limit, it cannot be executed. Please avoid loops in your functions or actions that modify large areas of storage (this includes clearing or copying arrays in storage)
+Pos: 394:1:
+For loop over dynamic array:
+Loops that do not have a fixed number of iterations, for example, loops that depend on storage values, have to be used carefully. Due to the block gas limit, transactions can only consume a certain amount of gas. The number of iterations in a loop can grow beyond the block gas limit which can cause the complete contract to be stalled at a certain point. Additionally, using unbounded loops incurs in a lot of avoidable gas costs. Carefully test how many items at maximum you can pass to such functions to make it successful.
+more
+Pos: 192:7:
+For loop over dynamic array:
+Loops that do not have a fixed number of iterations, for example, loops that depend on storage values, have to be used carefully. Due to the block gas limit, transactions can only consume a certain amount of gas. The number of iterations in a loop can grow beyond the block gas limit which can cause the complete contract to be stalled at a certain point. Additionally, using unbounded loops incurs in a lot of avoidable gas costs. Carefully test how many items at maximum you can pass to such functions to make it successful.
+more
+Pos: 240:19:
+Constant/View/Pure functions:
+ProfessionalLicenseRegistry.checkLicenseRequirements(address,uint256[]) : Is constant but potentially should not be. Note: Modifiers are currently not considered by this static analysis.
+more
+Pos: 294:3:
+Constant/View/Pure functions:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Is constant but potentially should not be. Note: Modifiers are currently not considered by this static analysis.
+more
+Pos: 394:1:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 113:5:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 118:7:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 118:18:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 122:0:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 123:10:
+Similar variable names:
+ProfessionalLicenseRegistry.registerPublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 125:19:
+Similar variable names:
+ProfessionalLicenseRegistry.removePublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 137:7:
+Similar variable names:
+ProfessionalLicenseRegistry.removePublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 137:18:
+Similar variable names:
+ProfessionalLicenseRegistry.removePublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 140:38:
+Similar variable names:
+ProfessionalLicenseRegistry.removePublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 142:9:
+Similar variable names:
+ProfessionalLicenseRegistry.removePublisher(address) : Variables have very similar names "publisher" and "publishers". Note: Modifiers are currently not considered by this static analysis.
+Pos: 144:19:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 180:13:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 184:18:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 184:27:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 203:10:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 182:48:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 184:18:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 185:17:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 186:11:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 187:3:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 188:15:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 190:7:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 196:1:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 180:13:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 182:48:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 184:27:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 185:17:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 186:11:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 187:3:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 188:15:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 190:7:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 196:1:
+Similar variable names:
+ProfessionalLicenseRegistry.issueLicense(address,uint256,uint256[]) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 203:10:
+Similar variable names:
+ProfessionalLicenseRegistry._isQualification(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 222:32:
+Similar variable names:
+ProfessionalLicenseRegistry._isQualification(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 222:41:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 245:4:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 246:20:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 248:33:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 250:21:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 259:2:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 265:4:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 268:13:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 276:15:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualification". Note: Modifiers are currently not considered by this static analysis.
+Pos: 281:8:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualificationIds". Note: Modifiers are currently not considered by this static analysis.
+Pos: 245:4:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualificationIds". Note: Modifiers are currently not considered by this static analysis.
+Pos: 245:30:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualificationIds". Note: Modifiers are currently not considered by this static analysis.
+Pos: 248:33:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualificationIds". Note: Modifiers are currently not considered by this static analysis.
+Pos: 259:2:
+Similar variable names:
+ProfessionalLicenseRegistry._checkRequirements(address,uint256[]) : Variables have very similar names "qualificationId" and "qualificationIds". Note: Modifiers are currently not considered by this static analysis.
+Pos: 242:11:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 318:31:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 319:3:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 345:21:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 318:5:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 318:31:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 321:33:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 329:33:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 333:41:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 339:7:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 340:9:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 318:5:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 319:3:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 321:33:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 329:33:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 333:41:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 339:7:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 340:9:
+Similar variable names:
+ProfessionalLicenseRegistry.deactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 345:21:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 356:8:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 358:5:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 383:4:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 355:19:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 356:8:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 359:1:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 367:0:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 372:11:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 377:0:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 377:25:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 355:19:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 358:5:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 359:1:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 367:0:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 372:11:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 377:0:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 377:25:
+Similar variable names:
+ProfessionalLicenseRegistry.reactivateLicense(uint256) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 383:4:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 401:1:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "licenses" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 401:10:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 398:12:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 401:1:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 403:8:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 408:4:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 414:0:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 419:35:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 420:46:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 424:44:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 430:4:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenses". Note: Modifiers are currently not considered by this static analysis.
+Pos: 431:29:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 398:12:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 401:10:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 403:8:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 408:4:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 414:0:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 419:35:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 420:46:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 424:44:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 430:4:
+Similar variable names:
+ProfessionalLicenseRegistry.verifyLicense(uint256,address) : Variables have very similar names "license" and "licenseId". Note: Modifiers are currently not considered by this static analysis.
+Pos: 431:29:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 87:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 95:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 112:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 117:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 136:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 162:21:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 170:31:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 321:12:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 329:12:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 333:20:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 358:26:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 366:26:
+Guard conditions:
+Use "assert(x)" if you never ever want x to be false, not in any circumstance (apart from a bug in your code). Use "require(x)" if x can be false, due to e.g. invalid input or a failing external component.
+more
+Pos: 370:34:

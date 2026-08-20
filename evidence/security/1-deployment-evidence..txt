@@ -25,7 +25,9 @@ Transaction cost:
 Execution cost:
 1,518,810 gas
 
------------------------------------------------------------------------------
+
+----------
+
 
 [vm]from: 0x5B3...eddC4to: ProfessionalLicenseRegistry.(constructor)value: 0 weidata: 0x608...20033logs: 0hash: 0x7ce...51f12
 status	1 Transaction mined and execution completed

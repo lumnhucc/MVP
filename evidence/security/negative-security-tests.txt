@@ -1,0 +1,85 @@
+Contract:
+ProfessionalLicenseRegistry
+
+Phạm vi:
+Kiểm thử các tình huống truy cập trái phép, thao tác không hợp lệ và chuyển trạng thái không hợp lệ đối với các cơ chế authorization, issuance và license lifecycle.
+
+1. Truy cập trái phép với quyền admin
+
+Tình huống:
+Một account không phải admin cố gắng thực hiện chức năng chỉ dành cho admin.
+
+Kỳ vọng:
+Transaction bị revert với lỗi authorization tương ứng.
+
+Evidence:
+authorization-negative-test.txt
+
+Kết quả:
+PASS
+
+2. Truy cập trái phép với quyền publisher
+
+Tình huống:
+Một account không phải publisher được ủy quyền cố gắng thực hiện chức năng chỉ dành cho publisher.
+
+Kỳ vọng:
+Transaction bị revert và state của contract không bị thay đổi.
+
+Evidence:
+authorization-negative-test.txt
+authorization-access-control.txt
+
+Kết quả:
+PASS
+
+3. Truy cập trái phép vào license lifecycle
+
+Tình huống:
+Một account không có quyền issuer/owner cần thiết cố gắng thay đổi trạng thái của License.
+
+Kỳ vọng:
+Transaction bị revert với lỗi authorization hoặc state tương ứng.
+
+Evidence:
+authorization-negative-test.txt
+authorization-access-control.txt
+
+Kết quả:
+PASS
+
+4. Thao tác với License / Qualification không hợp lệ
+
+Tình huống:
+Một License hoặc Qualification không hợp lệ/không tồn tại được sử dụng trong thao tác bị giới hạn.
+
+Kỳ vọng:
+Transaction bị revert với lỗi validation tương ứng.
+
+Evidence:
+Unit-test results và contract interaction logs.
+
+Kết quả:
+PASS
+
+5. Thay đổi trạng thái lặp lại hoặc không hợp lệ
+
+Tình huống:
+Một thao tác được thực hiện khi License đã ở trạng thái đích.
+
+Kỳ vọng:
+Transaction bị revert thay vì thực hiện một state transition không hợp lệ.
+
+Evidence:
+license-lifecycle-security.txt
+Unit-test results.
+
+Kết quả:
+PASS
+
+6. Đánh giá tổng thể
+
+Các negative security scenarios đã kiểm thử đều bị smart contract từ chối theo các quy tắc authorization và state validation được triển khai.
+
+Lưu ý:
+Các kết quả trên chỉ chứng minh khả năng chống lại những attack scenarios đã được kiểm thử. Không thể từ các test này kết luận rằng contract an toàn trước mọi vulnerability hoặc attack scenario có thể xảy ra.
