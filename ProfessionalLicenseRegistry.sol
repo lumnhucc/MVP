@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.34;
+pragma solidity >=0.8.0 <0.9.0;
 
 contract ProfessionalLicenseRegistry {
 
@@ -9,7 +9,8 @@ contract ProfessionalLicenseRegistry {
 
     enum Status {
         ACTIVE,
-        INACTIVE
+        SUSPENDED,
+        REVOKED
     }
 
     // =========================
@@ -17,11 +18,13 @@ contract ProfessionalLicenseRegistry {
     // =========================
 
     struct License {
+        string credentialName;
         address owner;
         address issuer;
         uint256 issueDate;
         uint256 expiry;
         Status status;
+        bytes32 metadataHash;
         uint256[] requiredQualificationIds;
     }
 
@@ -58,14 +61,17 @@ contract ProfessionalLicenseRegistry {
     event LicenseIssued(
         uint256 indexed licenseId,
         address indexed owner,
-        address indexed issuer
+        address indexed issuer,
+        string credentialName,
+        bytes32 metadataHash
     );
 
     event LicenseStatusChanged(
         uint256 indexed licenseId,
         Status oldStatus,
         Status newStatus,
-        address indexed actor
+        address indexed actor,
+        uint256 timestamp
     );
 
     event PublisherRegistered(
@@ -151,8 +157,10 @@ contract ProfessionalLicenseRegistry {
 
     function issueLicense(
         address owner,
+        string calldata credentialName,
         uint256 expiry,
-        uint256[] calldata requiredQualificationIds
+        uint256[] calldata requiredQualificationIds,
+        bytes32 metadataHash
     )
         external
         onlyPublisher
@@ -181,11 +189,13 @@ contract ProfessionalLicenseRegistry {
 
         License storage license = licenses[licenseId];
 
+        license.credentialName = credentialName;
         license.owner = owner;
         license.issuer = msg.sender;
         license.issueDate = block.timestamp;
         license.expiry = expiry;
         license.status = Status.ACTIVE;
+        license.metadataHash = metadataHash;
 
         for (
             uint256 i = 0;
@@ -200,7 +210,9 @@ contract ProfessionalLicenseRegistry {
         emit LicenseIssued(
             licenseId,
             owner,
-            msg.sender
+            msg.sender,
+            credentialName,
+            metadataHash
         );
     }
 
@@ -305,7 +317,7 @@ contract ProfessionalLicenseRegistry {
     // LICENSE LIFECYCLE
     // =========================
 
-    function deactivateLicense(
+    function suspendLicense(
         uint256 licenseId
     )
         external
@@ -319,7 +331,7 @@ contract ProfessionalLicenseRegistry {
         );
 
         // Chỉ Publisher đã phát hành License
-        // mới được deactivate License đó.
+        // mới được suspend License đó.
         require(
             license.issuer == msg.sender,
             "Not license issuer"
@@ -327,22 +339,21 @@ contract ProfessionalLicenseRegistry {
 
         require(
             license.status == Status.ACTIVE,
-            "License already inactive"
+            "License not active"
         );
 
-        Status oldStatus = license.status;
-
-        license.status = Status.INACTIVE;
+        license.status = Status.SUSPENDED;
 
         emit LicenseStatusChanged(
             licenseId,
-            oldStatus,
-            Status.INACTIVE,
-            msg.sender
+            Status.ACTIVE,
+            Status.SUSPENDED,
+            msg.sender,
+            block.timestamp
         );
     }
 
-    function reactivateLicense(
+    function restoreLicense(
         uint256 licenseId
     )
         external
@@ -356,26 +367,63 @@ contract ProfessionalLicenseRegistry {
         );
 
         // Chỉ Publisher đã phát hành License
-        // mới được reactivate License đó.
+        // mới được restore License đó.
         require(
             license.issuer == msg.sender,
             "Not license issuer"
         );
 
         require(
-            license.status == Status.INACTIVE,
-            "License already active"
+            license.status == Status.SUSPENDED,
+            "License not suspended"
         );
-
-        Status oldStatus = license.status;
 
         license.status = Status.ACTIVE;
 
         emit LicenseStatusChanged(
             licenseId,
-            oldStatus,
+            Status.SUSPENDED,
             Status.ACTIVE,
-            msg.sender
+            msg.sender,
+            block.timestamp
+        );
+    }
+
+    function revokeLicense(
+        uint256 licenseId
+    )
+        external
+        onlyPublisher
+    {
+        License storage license = licenses[licenseId];
+
+        require(
+            license.owner != address(0),
+            "License does not exist"
+        );
+
+        // Chỉ Publisher đã phát hành License
+        // mới được revoke License đó.
+        require(
+            license.issuer == msg.sender,
+            "Not license issuer"
+        );
+
+        require(
+            license.status == Status.ACTIVE || license.status == Status.SUSPENDED,
+            "License already revoked"
+        );
+
+        Status oldStatus = license.status;
+
+        license.status = Status.REVOKED;
+
+        emit LicenseStatusChanged(
+            licenseId,
+            oldStatus,
+            Status.REVOKED,
+            msg.sender,
+            block.timestamp
         );
     }
 

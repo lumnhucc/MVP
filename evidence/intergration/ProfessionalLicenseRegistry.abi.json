@@ -1,47 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "licenseId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deactivateLicense",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "expiry",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "requiredQualificationIds",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "issueLicense",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "licenseId",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -66,6 +24,18 @@
         "internalType": "address",
         "name": "issuer",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "credentialName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "metadataHash",
+        "type": "bytes32"
       }
     ],
     "name": "LicenseIssued",
@@ -97,6 +67,12 @@
         "internalType": "address",
         "name": "actor",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
       }
     ],
     "name": "LicenseStatusChanged",
@@ -141,45 +117,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "licenseId",
-        "type": "uint256"
-      }
-    ],
-    "name": "reactivateLicense",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "publisher",
-        "type": "address"
-      }
-    ],
-    "name": "registerPublisher",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "publisher",
-        "type": "address"
-      }
-    ],
-    "name": "removePublisher",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "admin",
     "outputs": [
@@ -219,6 +156,45 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "credentialName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "expiry",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "requiredQualificationIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "metadataHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "issueLicense",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "licenseId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -226,6 +202,11 @@
     ],
     "name": "licenses",
     "outputs": [
+      {
+        "internalType": "string",
+        "name": "credentialName",
+        "type": "string"
+      },
       {
         "internalType": "address",
         "name": "owner",
@@ -250,6 +231,11 @@
         "internalType": "enum ProfessionalLicenseRegistry.Status",
         "name": "status",
         "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "metadataHash",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -277,6 +263,71 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "publisher",
+        "type": "address"
+      }
+    ],
+    "name": "registerPublisher",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "publisher",
+        "type": "address"
+      }
+    ],
+    "name": "removePublisher",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "licenseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "restoreLicense",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "licenseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "revokeLicense",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "licenseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "suspendLicense",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "licenseId",
         "type": "uint256"
@@ -299,3 +350,4 @@
     "type": "function"
   }
 ]
+

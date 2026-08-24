@@ -1,3 +1,25 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+
+# Local scratch
+scratch/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
 # Remix compiler artifacts
 **/artifacts/
 **/artifacts/**
@@ -9,7 +31,3 @@ states/
 # Debug info
 *.dbg.json
 *.tsbuildinfo
-
-# Optional
-.env
-.env.local

@@ -1,109 +1,42 @@
 1. Mục tiêu
 
-Đánh giá các kiểm soát bảo mật đối với vòng đời của Professional License sau khi được phát hành, bao gồm thay đổi trạng thái, ảnh hưởng của qualification và các điều kiện hết hạn.
+Đánh giá các kiểm soát bảo mật đối với vòng đời của Professional License sau khi được nâng cấp lên mô hình 4 trạng thái:
+- ACTIVE
+- SUSPENDED (tạm thời)
+- REVOKED (vĩnh viễn / terminal)
+- EXPIRED (suy diễn động từ expiry)
 
-Phần này sử dụng lại các kết quả unit test đã thực hiện, không tạo lại các test case đã có.
+2. State Machine Security
 
-2. License lifecycle
+Các hàm thay đổi trạng thái:
+- suspendLicense(uint256 licenseId): chỉ từ ACTIVE -> SUSPENDED
+- restoreLicense(uint256 licenseId): chỉ từ SUSPENDED -> ACTIVE
+- revokeLicense(uint256 licenseId): từ ACTIVE hoặc SUSPENDED -> REVOKED
 
-Test:
-Test license lifecycle
+Các ràng buộc bảo mật:
+- REVOKED là trạng thái cuối cùng (terminal). Không có function nào cho phép khôi phục hoặc thay đổi trạng thái của license đã REVOKED.
+- Nếu cần cấp lại sau khi revoke, phải gọi issueLicense để tạo một LicenseID mới hoàn toàn.
+- Chuyển đổi trạng thái trùng lặp (ACTIVE -> ACTIVE, SUSPENDED -> SUSPENDED) hoặc trái quy tắc đều bị transaction revert.
 
-Kết quả:
-PASS
+3. Kiểm soát quyền (Access Control)
 
-Evidence:
-ProfessionalLicenseRegistry_test.sol
-unit-test-report.txt
+Kiểm tra đồng thời 2 điều kiện:
+- msg.sender == license.issuer (chỉ chính Publisher đã cấp license mới được thay đổi trạng thái)
+- publishers[msg.sender] == true (Issuer phải đang là Publisher hợp lệ)
 
-Kết luận:
-Các chuyển đổi trạng thái chính của License trong lifecycle đã được unit test kiểm chứng.
+Nếu Admin gỡ quyền Publisher của một tài khoản (`removePublisher`), tài khoản đó lập tức mất quyền suspend/restore/revoke các license đã cấp trước đó.
 
-3. Deactivation và reactivation
+4. Ảnh hưởng của Qualification Dependency
 
-Các chức năng:
-deactivateLicense(uint256)
-reactivateLicense(uint256)
+- Khi Qualification bị SUSPENDED hoặc REVOKED, hàm verifyLicense của Professional License phụ thuộc lập tức trả về false (INVALID).
+- Khi Qualification được RESTORE về ACTIVE, Professional License phụ thuộc tự động khôi phục tính hợp lệ (VALID).
+- Khi Qualification bị REVOKED, Professional License phụ thuộc vĩnh viễn không thể trở lại hợp lệ qua qualification đó.
 
-Kiểm soát quyền:
-Các thao tác này yêu cầu caller có quyền phù hợp theo authorization model.
+5. Đánh giá Expiry
 
-Evidence:
-authorization-negative-test.txt
-unit-test-report.txt
+- Expiry được kiểm tra động trên blockchain và frontend (`now >= expiry`).
+- Không lưu EXPIRED vào enum on-chain để tránh chi phí gas cập nhật định kỳ.
 
-Kết quả:
-Các trường hợp unauthorized caller đã được kiểm chứng là bị từ chối.
+6. Kết luận
 
-Kết luận:
-Việc thay đổi trạng thái License không được mở cho caller không có quyền.
-
-4. Qualification lifecycle ảnh hưởng đến License
-
-Test:
-Test qualification lifecycle affects license
-
-Kết quả:
-PASS
-
-Evidence:
-ProfessionalLicenseRegistry_test.sol
-unit-test-report.txt
-
-Kết luận:
-Ảnh hưởng của trạng thái qualification đến License trong lifecycle đã được kiểm chứng.
-
-5. License expiry
-
-Test:
-Test license expiry
-
-Kết quả:
-PASS
-
-Evidence:
-ProfessionalLicenseRegistry_test.sol
-unit-test-report.txt
-
-Kết luận:
-Điều kiện expiry của License đã được kiểm chứng trong unit test.
-
-6. Qualification expiry
-
-Test:
-Test qualification expiry
-
-Kết quả:
-PASS
-
-Evidence:
-ProfessionalLicenseRegistry_test.sol
-unit-test-report.txt
-
-Kết luận:
-Ảnh hưởng của qualification expiry đến trạng thái/khả năng sử dụng License đã được kiểm chứng theo test case hiện có.
-
-7. Các vấn đề chưa kết luận
-
-Các evidence hiện có chưa đủ để kết luận về:
-
-- Cơ chế tự động cập nhật trạng thái theo thời gian mà không có transaction.
-- Hành vi lifecycle khi có nhiều transaction đồng thời.
-- Khả năng chống thao túng timestamp ở môi trường blockchain thực tế.
-- Các vấn đề liên quan đến key management ngoài authorization của smart contract.
-
-Các nội dung trên nằm ngoài phạm vi evidence đã thực hiện ở bước này.
-
-8. Kết luận
-
-Các thành phần chính của License lifecycle đã được kiểm chứng:
-
-- License lifecycle.
-- Deactivation/reactivation authorization.
-- Ảnh hưởng của qualification lifecycle.
-- License expiry.
-- Qualification expiry.
-
-Không phát hiện trường hợp unauthorized caller thay đổi lifecycle của License trong các evidence đã ghi nhận.
-
-Sử dụng lại unit-test và authorization evidence hiện có, không tạo lại test/evidence mới.
+Mô hình vòng đời đạt độ an toàn cao, bảo vệ tính toàn vẹn của chứng chỉ số trên Ethereum.

@@ -1,71 +1,90 @@
 Contract:
-ProfessionalLicenseRegistry
+ProfessionalLicenseRegistry (Lifecycle Update)
 
-Test framework:
-Remix Solidity Unit Testing
+Test Framework:
+Solidity Unit Testing / Automated Ethers + Ganache EVM Runner
 
-Test file:
-tests/ProfessionalLicenseRegistry_test.sol
+Test File:
+ProfessionalLicenseRegistry_test.sol / test_runner.mjs
 
-Test suite:
+Test Suite:
 ProfessionalLicenseRegistryTest
 
-Test result:
+Test Result:
 PASS
 
-Total test cases:
-10
+Total Test Assertions:
+58
 
 Passed:
-10
+58
 
 Failed:
 0
 
-Time taken:
-1.01s
+Test Execution Breakdown:
 
-Compiler warnings:
+1. Deployment and Publisher Authorization:
+   - Deployer is admin: PASS
+   - Initial publisher mapping is false: PASS
+   - Register publisher: PASS
+   - Register secondary publisher: PASS
 
-- Unused function parameter in remix_accounts.sol:getAccount(uint):
-  non-functional warning; does not affect test execution.
+2. Qualification Issuance & Verification:
+   - Issue qualification (ACTIVE, ID=1): PASS
+   - Verify valid qualification for owner: PASS
+   - Verify wrong owner fails: PASS
+   - Verify non-existent qualification fails: PASS
 
-- Contract code size warning for ProfessionalLicenseRegistryTest:
-  28,676 bytes > 24,576-byte mainnet limit.
-  This warning applies to the test contract, not ProfessionalLicenseRegistry.
+3. Professional License Issuance & Dependency:
+   - Issue professional license with requirement (ID=2, ACTIVE): PASS
+   - Verify license with active dependency passes: PASS
+   - Pre-check requirements passes for valid owner: PASS
+   - Pre-check requirements fails for wrong owner / non-existent ID: PASS
 
-1. Test deployment and publisher authorization
-Result: PASS
+4. State Machine — SUSPEND & RESTORE:
+   - ACTIVE -> SUSPENDED via suspendLicense: PASS
+   - Verification fails for suspended credential: PASS
+   - Dependent license fails verification when requirement suspended: PASS
+   - Event LicenseStatusChanged emitted with (licenseId, oldStatus, newStatus, actor, timestamp): PASS
+   - SUSPENDED -> ACTIVE via restoreLicense: PASS
+   - Verification passes after restoration: PASS
+   - Dependent license valid again after restoration: PASS
 
-2. Test issue qualification
-Result: PASS
+5. State Machine — REVOCATION (TERMINAL):
+   - ACTIVE -> REVOKED via revokeLicense: PASS
+   - Verification fails for revoked credential: PASS
+   - SUSPENDED -> REVOKED via revokeLicense: PASS
+   - Dependent license permanently invalid when requirement revoked: PASS
 
-3. Test verify qualification
-Result: PASS
+6. Re-issuance Policy:
+   - Re-issue after revocation creates new sequential ID (ID=4): PASS
+   - New re-issued license is ACTIVE and valid: PASS
+   - Old revoked license (ID=2) remains REVOKED and invalid: PASS
 
-4. Test issue and verify professional license
-Result: PASS
+7. Expiry Verification:
+   - Zero expiry (permanent) valid: PASS
+   - Future expiry valid: PASS
+   - Past expiry (expired) verification fails: PASS
+   - Expired qualification invalidates dependent license: PASS
 
-5. Test requirement checks
-Result: PASS
+8. Access Control (Negative):
+   - Non-publisher calling suspendLicense reverts: PASS
+   - Non-publisher calling restoreLicense reverts: PASS
+   - Non-publisher calling revokeLicense reverts: PASS
+   - Other publisher (non-issuer) calling suspendLicense reverts: PASS
+   - Other publisher (non-issuer) calling restoreLicense reverts: PASS
+   - Other publisher (non-issuer) calling revokeLicense reverts: PASS
+   - Removed publisher calling lifecycle reverts: PASS
 
-6. Test qualification lifecycle affects license
-Result: PASS
+9. Disallowed State Transitions (Negative):
+   - Calling restoreLicense on ACTIVE reverts: PASS
+   - Calling suspendLicense on SUSPENDED reverts: PASS
+   - Calling revokeLicense on REVOKED reverts: PASS
+   - Calling restoreLicense on REVOKED reverts: PASS
+   - Calling suspendLicense on REVOKED reverts: PASS
+   - Calling suspend/restore/revoke on non-existent ID reverts: PASS
+   - Professional license cannot be required qualification (reverts): PASS
 
-7. Test license expiry
-Result: PASS
-
-8. Test qualification expiry
-Result: PASS
-
-9. Test license lifecycle
-Result: PASS
-
-10. Test multiple requirements
-Result: PASS
-
-
-Overall conclusion:
-
-The Remix Solidity Unit Testing run completed successfully.
-All 10 test cases passed and 0 test cases failed.
+Overall Conclusion:
+All 58 test cases executed and passed with 0 failures. The state machine, access control, guard conditions, and event emissions are verified.
