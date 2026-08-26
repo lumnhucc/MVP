@@ -41,8 +41,8 @@ Cross-device testing: NOT VERIFIED - RESERVED FOR USER
 ### Bước 1: Cài đặt Dependencies
 
 ```bash
-cd evidence/intergration/intergration-client
-npm install
+cd frontend
+npm ci
 ```
 
 ### Bước 2: Chạy Development Server
@@ -53,13 +53,18 @@ npm run dev
 
 Ứng dụng sẽ khởi chạy tại `http://localhost:5173`.
 
-### Bước 3: Build Production
+### Bước 3: Build Production & Deploy Netlify
 
 ```bash
 npm run build
 ```
 
-Bundle tĩnh tối ưu sẽ được xuất ra thư mục `evidence/intergration/intergration-client/dist/`.
+- Bundle tĩnh tối ưu sẽ được xuất ra thư mục **`frontend/dist/`**.
+- **Hướng dẫn deploy Netlify (Drag-and-Drop):** Chỉ kéo thả đúng thư mục **`frontend/dist/`** vào giao diện Deploy của Netlify. Tuyệt đối không kéo thư mục `frontend/`, `evidence/` hoặc repository root.
+
+> **Ghi chú về Metadata Persistence:**
+> - Metadata được lưu trong `localStorage` (hỗ trợ tự động migrate từ `sessionStorage` cũ) giúp dữ liệu không bị mất khi đóng và mở lại trên cùng browser/origin.
+> - `localStorage` không áp dụng cho cross-browser hoặc cross-device; khi chia sẻ sang trình duyệt/thiết bị khác, người dùng sử dụng tính năng **Share / QR link** mang tham số metadata `m`.
 
 ---
 

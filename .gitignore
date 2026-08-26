@@ -31,3 +31,6 @@ states/
 # Debug info
 *.dbg.json
 *.tsbuildinfo
+
+# Editor
+.vscode/

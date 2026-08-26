@@ -130,15 +130,16 @@ Frontend verification executes in strict order to avoid masking error causes:
 
 ## F. Frontend Client
 
-- Source: [main.js](evidence/intergration/intergration-client/src/main.js), [abi.json](evidence/intergration/intergration-client/src/abi.json), [style.css](evidence/intergration/intergration-client/src/style.css).
+- Source: [main.js](frontend/src/main.js), [abi.json](frontend/src/abi.json), [style.css](frontend/src/style.css).
 - Status Pills: `ACTIVE` (green), `SUSPENDED` (orange), `REVOKED` (red), `EXPIRED` (amber).
 - Actions: `Suspend` (orange), `Restore` (blue/primary), `Revoke` (red/danger).
 - UI Guards:
   - `Restore` is hidden/disabled for `REVOKED` and `ACTIVE`.
   - `Suspend` is hidden/disabled for `SUSPENDED` and `REVOKED`.
   - Lifecycle actions are completely inaccessible to users without Publisher role on that license.
-- Cross-Device Share/QR: Encodes canonical metadata as base64 in `m` URL parameter. Verification is independent of local `sessionStorage`.
-- Audit History: Decodes `LicenseStatusChanged` with timestamp and state transitions.
+- Metadata Persistence: Stored in `localStorage` with automatic fallback migration from legacy `sessionStorage`.
+- Cross-Device Share/QR: Encodes canonical metadata as base64 in `m` URL parameter. Verification is independent of local `localStorage`.
+- Audit History: Decodes `LicenseIssued` and `LicenseStatusChanged` with timestamp and state transitions, with Sepolia RPC retry & fallback against transient errors.
 
 ---
 
@@ -149,7 +150,8 @@ Frontend verification executes in strict order to avoid masking error causes:
 - Result: **58/58 PASSED, 0 FAILED**
 
 ### Frontend Build
-- Build command: `npm.cmd run build`
+- Build command: `cd frontend && npm run build`
+- Output: `frontend/dist/`
 - Result: **PASS** (202 modules transformed, 0 errors).
 
 ---

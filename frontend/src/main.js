@@ -6,6 +6,13 @@ import "./style.css";
 const ADDRESS = "0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37";
 const SEPOLIA = 11155111n;
 const SEPOLIA_RPC = "https://ethereum-sepolia-rpc.publicnode.com";
+const SEPOLIA_RPCS = [
+  "https://ethereum-sepolia-rpc.publicnode.com",
+  "https://rpc.sepolia.org",
+  "https://sepolia.drpc.org",
+  "https://1rpc.io/sepolia",
+  "https://rpc2.sepolia.org"
+];
 const DEPLOYMENT_BLOCK = 11557021;
 const rpcProvider = new ethers.JsonRpcProvider(SEPOLIA_RPC);
 const STATUS = { ACTIVE: 0, SUSPENDED: 1, REVOKED: 2 };
@@ -70,6 +77,49 @@ function metadataHash(metadata) {
 }
 
 function metadataStorageKey(id) { return `professional-license-metadata:${ADDRESS}:${id}`; }
+
+function saveLicenseMetadata(id, metadata) {
+  const key = metadataStorageKey(id);
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(key, metadata);
+    }
+  } catch (e) {
+    console.warn("Không thể lưu metadata vào localStorage:", e);
+  }
+}
+
+function getLicenseMetadata(id) {
+  const key = metadataStorageKey(id);
+  let metadata = null;
+  try {
+    if (typeof localStorage !== "undefined") {
+      metadata = localStorage.getItem(key);
+    }
+  } catch (e) {
+    console.warn("Không thể đọc metadata từ localStorage:", e);
+  }
+  if (!metadata) {
+    try {
+      if (typeof sessionStorage !== "undefined") {
+        const legacyData = sessionStorage.getItem(key);
+        if (legacyData) {
+          metadata = legacyData;
+          try {
+            if (typeof localStorage !== "undefined") {
+              localStorage.setItem(key, legacyData);
+            }
+          } catch {
+            // ignore
+          }
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return metadata;
+}
 
 function encodeMetadata(metadata) {
   const bytes = new TextEncoder().encode(metadata);
@@ -349,13 +399,61 @@ async function loadSharedLicense(id) {
   }
 }
 
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchContractEventsWithFallback(licenseId) {
+  const candidates = [];
+  if (provider && readContract) {
+    candidates.push({ name: "browserProvider", contract: readContract });
+  }
+  for (const rpcUrl of SEPOLIA_RPCS) {
+    try {
+      const p = new ethers.JsonRpcProvider(rpcUrl);
+      candidates.push({ name: rpcUrl, contract: new ethers.Contract(ADDRESS, abi, p) });
+    } catch {
+      // ignore invalid provider setup
+    }
+  }
+
+  let lastError = null;
+  const MAX_RETRIES_PER_ENDPOINT = 2;
+
+  for (const candidate of candidates) {
+    for (let attempt = 1; attempt <= MAX_RETRIES_PER_ENDPOINT; attempt++) {
+      try {
+        const issuedFilter = candidate.contract.filters.LicenseIssued(licenseId);
+        const statusFilter = candidate.contract.filters.LicenseStatusChanged(licenseId);
+        const [issued, statusChanges] = await Promise.all([
+          candidate.contract.queryFilter(issuedFilter, DEPLOYMENT_BLOCK, "latest"),
+          candidate.contract.queryFilter(statusFilter, DEPLOYMENT_BLOCK, "latest")
+        ]);
+        return { issued, statusChanges };
+      } catch (err) {
+        lastError = err;
+        console.warn(`Query events failed on ${candidate.name} (attempt ${attempt}/${MAX_RETRIES_PER_ENDPOINT}):`, err);
+        if (attempt < MAX_RETRIES_PER_ENDPOINT) {
+          await sleep(250 * attempt);
+        }
+      }
+    }
+  }
+
+  throw lastError || new Error("Mọi RPC Sepolia đều không thể tải logs.");
+}
+
 async function loadAuditHistory(id) {
   const box = $("auditHistory");
   if (!box) return;
+  if (!id || !/^\d+$/.test(id) || BigInt(id) <= 0n) {
+    box.innerHTML = "<span>License ID không hợp lệ.</span>";
+    return;
+  }
+  box.innerHTML = `<span class="loading">Đang tải lịch sử event...</span>`;
   try {
+    const { issued, statusChanges } = await fetchContractEventsWithFallback(id);
     const events = [];
-    const issued = await readContract.queryFilter(readContract.filters.LicenseIssued(id), DEPLOYMENT_BLOCK, "latest");
-    const statusChanges = await readContract.queryFilter(readContract.filters.LicenseStatusChanged(id), DEPLOYMENT_BLOCK, "latest");
     for (const event of issued) {
       events.push({
         type: "LicenseIssued",
@@ -379,9 +477,10 @@ async function loadAuditHistory(id) {
         event
       });
     }
-    events.sort((left, right) => left.event.blockNumber - right.event.blockNumber);
+    events.sort((left, right) => (left.event.blockNumber || 0) - (right.event.blockNumber || 0));
     box.innerHTML = events.length ? events.map(renderAuditEvent).join("") : "<span>Không có event history.</span>";
   } catch (e) {
+    console.error("Load audit history error:", e);
     box.innerHTML = `<span>Không thể tải event history: ${esc(errorMessage(e))}</span>`;
   }
 }
@@ -589,6 +688,11 @@ async function verifyLicense() {
   const result = $("verifyResult");
   result.className = "result loading";
   result.innerHTML = "<strong>Đang kiểm tra...</strong><span>Đọc trạng thái trực tiếp từ smart contract trên Sepolia.</span>";
+  loadAuditHistory(id).catch(e => {
+    console.error("Load audit history error:", e);
+    const box = $("auditHistory");
+    if (box) box.innerHTML = `<span>Không thể tải event history: ${esc(errorMessage(e))}</span>`;
+  });
 
   try {
     const data = await readContract.licenses(id);
@@ -627,7 +731,7 @@ async function verifyLicense() {
     if (payload) {
       try { metadata = decodeMetadata(payload); } catch (e) { metadata = null; }
     }
-    if (!metadata) metadata = sessionStorage.getItem(metadataStorageKey(id));
+    if (!metadata) metadata = getLicenseMetadata(id);
     if (!metadata) {
       result.className = "result error";
       result.innerHTML = `<strong>UNVERIFIABLE</strong><span>Không lấy được metadata off-chain để kiểm tra integrity.</span><div class="verify-detail"><span>License ID: <b>${esc(id)}</b></span><span>Credential Name: <b>${esc(credentialName)}</b></span><span>On-chain metadataHash: <b>${esc(onChainMetadataHash)}</b></span></div>`;
@@ -791,7 +895,7 @@ async function issueLicense() {
   const receipt = await runTx(() => contract.issueLicense(owner, credentialName, expiry, quals, hash), "issueResult");
   if (receipt?.logs) {
     const issued = receipt.logs.find(log => log.fragment?.name === "LicenseIssued");
-    if (issued) sessionStorage.setItem(metadataStorageKey(issued.args.licenseId.toString()), metadata);
+    if (issued) saveLicenseMetadata(issued.args.licenseId.toString(), metadata);
   }
   await loadLicenseList(true);
 }
