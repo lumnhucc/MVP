@@ -1,13 +1,13 @@
-# Bằng chứng triển khai — ProfessionalLicenseRegistry (hợp đồng chính thức v2)
+# Bằng chứng triển khai — ProfessionalLicenseRegistry (Hợp đồng triển khai chính thức)
 
-## 1. Thông tin triển khai chính thức (hợp đồng triển khai v2)
+## 1. Thông tin triển khai chính thức (Hợp đồng ProfessionalLicenseRegistry)
 
 | Thông tin | Giá trị |
 |---|---|
 | Mạng | Ethereum Sepolia Testnet |
 | Chain ID | `11155111` |
 | Hợp đồng thông minh | `ProfessionalLicenseRegistry` |
-| Phiên bản | Phiên bản 2.0 (mô hình trạng thái vòng đời: `ACTIVE`, `SUSPENDED`, `REVOKED`) |
+| Mô hình trạng thái | Mô hình trạng thái vòng đời (`ACTIVE`, `SUSPENDED`, `REVOKED`) |
 | Địa chỉ hợp đồng | `0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37` |
 | Giao dịch triển khai | `0x795e492c90802447bd64ce0fc6d2003a0f115b90146fe632df9e74604341c58a` |
 | Block triển khai | `11557021` |
@@ -32,8 +32,9 @@ Kiểm thử trên nhiều thiết bị: ĐÃ XÁC MINH (Ca 10 — Cross-Device 
 
 ## 3. Bằng chứng trực quan do người dùng cung cấp
 
-- Ảnh chụp màn hình triển khai từ Remix IDE trên Sepolia Testnet.
-- Ảnh chụp màn hình giao dịch triển khai trên Sepolia Etherscan (`0x795e492c90802447bd64ce0fc6d2003a0f115b90146fe632df9e74604341c58a`).
+- Ảnh chụp màn hình triển khai từ Remix IDE trên Sepolia Testnet: [`hinh-anh-remix-deploy.png`](hinh-anh-remix-deploy.png)
+- Ảnh chụp màn hình cấu hình trình biên dịch (Solidity 0.8.34, EVM Osaka, Optimizer Off): [`compiler-setting.png`](compiler-setting.png)
+- Ảnh chụp màn hình giao dịch triển khai trên Sepolia Etherscan (`0x795e492c90802447bd64ce0fc6d2003a0f115b90146fe632df9e74604341c58a`): [`transaction-evidence.png`](transaction-evidence.png)
 - Các bằng chứng trực quan này được lưu giữ và tham chiếu nguyên bản, không sửa đổi hay ghi đè.
 
 ---

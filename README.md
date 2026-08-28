@@ -1,8 +1,9 @@
+
 # MVP Sổ đăng ký giấy phép hành nghề chuyên môn
 
 Hệ thống quản lý và xác thực chứng chỉ / giấy phép hành nghề chuyên môn trên nền tảng Ethereum Sepolia Testnet.
 
-## 1. Thông tin triển khai chính thức (Hợp đồng triển khai chính thức v2)
+## 1. Thông tin triển khai chính thức (Hợp đồng ProfessionalLicenseRegistry)
 
 - **Mạng:** Ethereum Sepolia Testnet
 - **Chain ID:** `11155111`
@@ -69,7 +70,7 @@ npm run build
 
 ---
 
-## 4. Vòng đời chứng chỉ (Mô hình trạng thái v2.0)
+## 4. Vòng đời chứng chỉ (Mô hình trạng thái vòng đời)
 
 Hệ thống triển khai mô hình 4 trạng thái:
 

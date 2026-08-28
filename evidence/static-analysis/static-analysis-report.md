@@ -1,4 +1,4 @@
-# Báo cáo phân tích tĩnh — ProfessionalLicenseRegistry (hợp đồng chính thức v2)
+# Báo cáo phân tích tĩnh — ProfessionalLicenseRegistry (Hợp đồng triển khai chính thức)
 
 ## 1. Thông tin hợp đồng và triển khai chính thức
 

@@ -177,7 +177,7 @@ function render() {
         <div class="brand"><div class="logo">♜</div><div><strong>Professional</strong><span>License Registry</span></div></div>
         <nav class="nav">${navPages.map(key => { const p = pages[key]; return `<a href="#${key}" class="nav-link ${active === key ? "active" : ""}"><span class="icon">${p.icon}</span>${p.label}</a>`; }).join("")}</nav>
         <div class="side-contract"><h4>◈ &nbsp; Contract</h4><div class="contract-row"><span class="eth">♦</span><span>${shortAddress(ADDRESS)}</span><button id="copyContract" class="btn icon-btn">□</button></div><div class="side-meta"><span class="dot"></span>Sepolia Testnet</div><button id="explorer" class="explorer">Xem trên Etherscan ↗</button></div>
-        <div class="version"><b>Client v2.0.0</b>Professional License MVP</div>
+        <div class="version"><b>Professional License MVP</b>Bản triển khai Sepolia</div>
       </aside>
       <main class="main">
         <div class="topbar"><div class="title"><h1>Professional License Registry</h1><p>Integration client — Ethereum Sepolia</p></div><div class="top-actions"><div class="network">♦ &nbsp; Sepolia Testnet <span class="green-dot"></span></div><button id="connect" class="connect">🦊 &nbsp; ${account ? "Đã kết nối" : "Kết nối MetaMask"}</button></div></div>

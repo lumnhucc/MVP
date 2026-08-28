@@ -219,8 +219,8 @@ Dưới đây là các kịch bản chuẩn để người dùng kiểm thử th
     - Màn hình xác minh (`/verify`) hiển thị kết quả `EXPIRED / INVALID` với thông báo: *"License đã hết hạn theo thời gian hiệu lực."*
 
 ### Ca 8 & Ca 9: Kiểm thử tính toàn vẹn Metadata
-- **Ca 8 (Metadata bị can thiệp):** [`evidence/e2e-08-tampered-metadata-untrusted.png`](./e2e-08-tampered-metadata-untrusted.png) — Khi sửa đổi giá trị hash trong tham số `m` trên URL xác minh, hệ thống đối chiếu với hash lưu trên smart contract và phát hiện không trùng khớp, trả về kết quả `UNTRUSTED / INTEGRITY FAILED`.
-- **Ca 9 (Thiếu Metadata):** [`evidence/e2e-09-missing-metadata-unverifiable.png`](./e2e-09-missing-metadata-unverifiable.png) — Khi mở URL xác minh không có tham số `m` trên trình duyệt mới (không có dữ liệu trong `localStorage`), hệ thống không thể tải off-chain metadata và trả về kết quả `UNVERIFIABLE`.
+- **Ca 8 (Metadata bị can thiệp):** [`evidence/e2e-08-tampered-metadata-untrusted.jpg`](./e2e-08-tampered-metadata-untrusted.jpg) — Khi sửa đổi giá trị hash trong tham số `m` trên URL xác minh, hệ thống đối chiếu với hash lưu trên smart contract và phát hiện không trùng khớp, trả về kết quả `UNTRUSTED / INTEGRITY FAILED`.
+- **Ca 9 (Thiếu Metadata):** [`evidence/e2e-09-missing-metadata-unverifiable.jpg`](./e2e-09-missing-metadata-unverifiable.jpg) — Khi mở URL xác minh không có tham số `m` trên trình duyệt mới (không có dữ liệu trong `localStorage`), hệ thống không thể tải off-chain metadata và trả về kết quả `UNVERIFIABLE`.
 
 ### Ca 10: Chia sẻ / QR trên nhiều thiết bị (Cross-Device Share / QR)
 - **Ảnh bằng chứng:**
