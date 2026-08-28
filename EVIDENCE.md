@@ -352,6 +352,8 @@ Danh mục liên kết tương đối tới toàn bộ các tệp bằng chứng
 - **Tài liệu Hướng dẫn Dự án:** [`README.md`](README.md)
 - **Giấy phép mã nguồn:** [`LICENSE`](LICENSE)
 - **Cấu hình môi trường mẫu:** [`.env.example`](.env.example)
+- **Script triển khai mạng cục bộ:** [`scripts/deploy-local.mjs`](scripts/deploy-local.mjs)
+- **Script cấp dữ liệu mẫu mạng cục bộ:** [`scripts/seed-local.mjs`](scripts/seed-local.mjs)
 
 ---
 

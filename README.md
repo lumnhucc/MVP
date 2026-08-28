@@ -193,11 +193,11 @@ Frontend được cấu hình sẵn với contract chính thức:
 - **ABI File:** `frontend/src/abi.json`
 - **Cấu hình mẫu:** [`.env.example`](.env.example) (template an toàn cho nhà phát triển)
 
-> **Lưu ý cấu hình Frontend & Giới hạn M9:**
-> - Frontend hiện tại liên kết trực tiếp với địa chỉ hợp đồng chính thức trong `frontend/src/main.js` mà không đọc `.env` runtime; khi tái triển khai trên môi trường mới cần cập nhật thủ công biến cấu hình và tệp ABI tương ứng.
-> - Deployment chính thức của dự án được thực hiện thủ công qua Remix IDE và MetaMask.
-> - Dữ liệu demo được tạo thủ công qua giao diện frontend và Remix IDE.
-> - Dự án **chưa có script deploy/seed tự động** trong phạm vi MVP; đây là giới hạn đã được ghi nhận của tiêu chí M9 và tiêu chí M9 hiện giữ trạng thái **`ĐẠT MỘT PHẦN`**.
+> **Lưu ý cấu hình Frontend & Tính tách biệt Deployment:**
+> - Frontend hiện tại liên kết trực tiếp với địa chỉ hợp đồng chính thức trên Sepolia trong `frontend/src/main.js` mà không đọc `.env` runtime; khi tái triển khai trên môi trường mới cần cập nhật thủ công biến cấu hình và tệp ABI tương ứng.
+> - Deployment chính thức của dự án được thực hiện thủ công qua Remix IDE và MetaMask trên mạng Sepolia Testnet.
+> - Dữ liệu demo chính thức (Ca 0 – Ca 10) được tạo thủ công qua frontend và Remix IDE trên Sepolia.
+> - Dự án cung cấp thêm các script tự động hóa cục bộ (`npm run deploy:local`, `npm run seed:local`) phục vụ tái lập trên local chain (chi tiết tại Mục 7.8).
 
 ### 7.4. Quy trình triển khai lại hợp đồng trong môi trường cấp phép (Redeployment)
 
@@ -237,6 +237,38 @@ Frontend được cấu hình sẵn với contract chính thức:
 
 - Toàn bộ bằng chứng E2E hiện tại (License `#1` đến `#9`, Publisher `0xd1F7...Dc82`, Owner `0x4136...9923`) gắn liền với hợp đồng chính thức `0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37` trên mạng Sepolia Testnet.
 - Khi triển khai một hợp đồng mới, ID sẽ đếm lại từ `#1` và không mang theo dữ liệu lịch sử của contract cũ.
+
+### 7.8. Khả năng tái lập trên mạng cục bộ (Local Reproducibility Scripts)
+
+Dự án cung cấp bộ script độc lập hỗ trợ biên dịch, triển khai và cấp phát dữ liệu mẫu tự động trên môi trường phát triển cục bộ (Local Chain) mà **hoàn toàn không tác động** tới hợp đồng chính thức hay bằng chứng kiểm thử trên Sepolia:
+
+#### Bước 1: Khởi động Local EVM Node (Ganache)
+```bash
+npm run node:local
+# Hoặc: npx --prefix frontend ganache --port 8545 --wallet.totalAccounts 10
+```
+
+#### Bước 2: Biên dịch và Triển khai Contract lên Local Chain
+```bash
+npm run deploy:local
+# Hoặc: node scripts/deploy-local.mjs
+```
+Script sẽ tự động biên dịch `ProfessionalLicenseRegistry.sol` và triển khai một contract instance mới lên local chain, in ra địa chỉ hợp đồng cục bộ (ví dụ: `0x5E90149dc2AF0f6a8bFaD39447041ffaC53b6181`).
+
+#### Bước 3: Cấp phát dữ liệu mẫu tự động (Seed Happy Path)
+```bash
+npm run seed:local -- <LOCAL_CONTRACT_ADDRESS>
+# Ví dụ: npm run seed:local -- 0x5E90149dc2AF0f6a8bFaD39447041ffaC53b6181
+```
+Script sẽ tự động thực thi chuỗi kịch bản chuẩn:
+1. Admin cấp quyền Publisher cho tài khoản ví thứ 2.
+2. Publisher cấp Qualification `#1` (`CompTIA Security+`).
+3. Publisher cấp Professional License `#2` (`SOC Analyst 2`) với điều kiện ràng buộc `#1`.
+4. Gọi `verifyLicense(2, holder)` và in kết quả kiểm tra `VALID`.
+
+> ⚠️ **LƯU Ý TÁCH BIỆT RÕ RÀNG:**
+> - **Official Sepolia Deployment:** Triển khai thủ công bằng Remix IDE và MetaMask (Địa chỉ: `0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37`, Block: `11557021`). Toàn bộ hồ sơ bằng chứng trong thư mục `evidence/` gắn liền bất biến với deployment này.
+> - **Local Scripted Deployment:** Tạo instance hoàn toàn mới trên mạng nội bộ để thẩm định logic mã nguồn; script có cơ chế chặn an toàn, từ chối kết nối tới Sepolia/Mainnet và không ghi dữ liệu đè lên bằng chứng chính thức.
 
 ---
 

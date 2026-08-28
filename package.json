@@ -1,0 +1,14 @@
+{
+  "name": "professional-license-mvp",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "node:local": "npx --prefix frontend ganache --port 8545 --wallet.totalAccounts 10",
+    "deploy:local": "node scripts/deploy-local.mjs",
+    "seed:local": "node scripts/seed-local.mjs"
+  }
+}
