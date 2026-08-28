@@ -6,7 +6,7 @@
 - REVOKED (vĩnh viễn / terminal)
 - EXPIRED (suy diễn động từ expiry)
 
-2. State Machine Security
+2. Bảo mật mô hình trạng thái
 
 Các hàm thay đổi trạng thái:
 - suspendLicense(uint256 licenseId): chỉ từ ACTIVE -> SUSPENDED
@@ -18,7 +18,7 @@ Các ràng buộc bảo mật:
 - Nếu cần cấp lại sau khi revoke, phải gọi issueLicense để tạo một LicenseID mới hoàn toàn.
 - Chuyển đổi trạng thái trùng lặp (ACTIVE -> ACTIVE, SUSPENDED -> SUSPENDED) hoặc trái quy tắc đều bị transaction revert.
 
-3. Kiểm soát quyền (Access Control)
+3. Kiểm soát quyền
 
 Kiểm tra đồng thời 2 điều kiện:
 - msg.sender == license.issuer (chỉ chính Publisher đã cấp license mới được thay đổi trạng thái)
@@ -26,13 +26,13 @@ Kiểm tra đồng thời 2 điều kiện:
 
 Nếu Admin gỡ quyền Publisher của một tài khoản (`removePublisher`), tài khoản đó lập tức mất quyền suspend/restore/revoke các license đã cấp trước đó.
 
-4. Ảnh hưởng của Qualification Dependency
+4. Ảnh hưởng của dependency qualification
 
 - Khi Qualification bị SUSPENDED hoặc REVOKED, hàm verifyLicense của Professional License phụ thuộc lập tức trả về false (INVALID).
 - Khi Qualification được RESTORE về ACTIVE, Professional License phụ thuộc tự động khôi phục tính hợp lệ (VALID).
 - Khi Qualification bị REVOKED, Professional License phụ thuộc vĩnh viễn không thể trở lại hợp lệ qua qualification đó.
 
-5. Đánh giá Expiry
+5. Đánh giá thời hạn
 
 - Expiry được kiểm tra động trên blockchain và frontend (`now >= expiry`).
 - Không lưu EXPIRED vào enum on-chain để tránh chi phí gas cập nhật định kỳ.

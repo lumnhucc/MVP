@@ -1,0 +1,27 @@
+Progress: 1 finished (of 1)
+PASSProfessionalLicenseRegistryTest (tests/ProfessionalLicenseRegistry_test.sol)
+✓ Test deployment and publisher authorization
+✓ Test issue qualification
+✓ Test verify qualification
+✓ Test issue and verify professional license
+✓ Test requirement checks
+✓ Test suspend and restore lifecycle
+✓ Test revoke from active
+✓ Test revoke from suspended
+✓ Test reissue after revocation
+✓ Test qualification lifecycle affects license
+✓ Test license expiry
+✓ Test qualification expiry
+✓ Test multiple requirements
+✓ Test professional license cannot be required qualification
+✓ Test publisher other than issuer cannot change lifecycle
+✓ Test non publisher cannot change lifecycle
+✓ Test disallowed state transitions
+✓ Test publisher removal
+✓ Test publisher validation
+✓ Test admin access control
+✓ Test issue input validation
+Result for tests/ProfessionalLicenseRegistry_test.sol
+Passed: 21
+Failed: 0
+Time Taken: 1.32s

@@ -32,5 +32,12 @@ states/
 *.dbg.json
 *.tsbuildinfo
 
-# Editor
+# Editor and agent workspaces
 .vscode/
+.agents/
+.gemini/
+.codex/
+
+# Internal manifests / non-submission documents
+/SUBMISSION_MANIFEST.md
+docs/

@@ -7,7 +7,7 @@ import "../../ProfessionalLicenseRegistry.sol";
 import "./LifecycleCaller.sol";
 
 // =========================================================
-// TEST SUITE: ProfessionalLicenseRegistryTest
+// BỘ KIỂM THỬ: ProfessionalLicenseRegistryTest
 // =========================================================
 
 contract ProfessionalLicenseRegistryTest {
@@ -16,7 +16,7 @@ contract ProfessionalLicenseRegistryTest {
     address private otherOwner;
 
     // =====================================================
-    // HELPERS
+    // HÀM HỖ TRỢ
     // =====================================================
 
     function _addresses() internal {
@@ -71,7 +71,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 01. DEPLOYMENT / PUBLISHER AUTHORIZATION
+    // 01. TRIỂN KHAI / PHÂN QUYỀN PUBLISHER
     // =====================================================
 
     function testDeploymentAndPublisherAuthorization()
@@ -101,7 +101,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 02. ISSUE QUALIFICATION (ACTIVE)
+    // 02. CẤP QUALIFICATION (ACTIVE)
     // =====================================================
 
     function testIssueQualification()
@@ -172,7 +172,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 03. VERIFY QUALIFICATION
+    // 03. XÁC MINH QUALIFICATION
     // =====================================================
 
     function testVerifyQualification()
@@ -206,7 +206,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 04. ISSUE + VERIFY PROFESSIONAL LICENSE
+    // 04. CẤP + XÁC MINH PROFESSIONAL LICENSE
     // =====================================================
 
     function testIssueAndVerifyProfessionalLicense()
@@ -290,7 +290,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 05. PRE-CHECK REQUIREMENTS
+    // 05. KIỂM TRA TRƯỚC REQUIREMENT
     // =====================================================
 
     function testRequirementChecks()
@@ -328,7 +328,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 06. STATE MACHINE: ACTIVE -> SUSPENDED -> ACTIVE
+    // 06. MÔ HÌNH TRẠNG THÁI: ACTIVE -> SUSPENDED -> ACTIVE
     // =====================================================
 
     function testSuspendAndRestoreLifecycle()
@@ -384,7 +384,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 07. STATE MACHINE: ACTIVE -> REVOKED (TERMINAL)
+    // 07. MÔ HÌNH TRẠNG THÁI: ACTIVE -> REVOKED (KẾT THÚC)
     // =====================================================
 
     function testRevokeFromActive()
@@ -412,7 +412,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 08. STATE MACHINE: SUSPENDED -> REVOKED (TERMINAL)
+    // 08. MÔ HÌNH TRẠNG THÁI: SUSPENDED -> REVOKED (KẾT THÚC)
     // =====================================================
 
     function testRevokeFromSuspended()
@@ -440,7 +440,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 09. REISSUE AFTER REVOCATION CREATES NEW LICENSE ID
+    // 09. CẤP LẠI SAU THU HỒI TẠO LICENSE ID MỚI
     // =====================================================
 
     function testReissueAfterRevocation()
@@ -488,7 +488,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 10. QUALIFICATION LIFECYCLE AFFECTS PROFESSIONAL LICENSE
+    // 10. VÒNG ĐỜI QUALIFICATION ẢNH HƯỞNG PROFESSIONAL LICENSE
     // =====================================================
 
     function testQualificationLifecycleAffectsLicense()
@@ -533,7 +533,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 11. LICENSE & QUALIFICATION EXPIRY
+    // 11. THỜI HẠN LICENSE VÀ QUALIFICATION
     // =====================================================
 
     function testLicenseExpiry()
@@ -660,7 +660,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 13. PROFESSIONAL LICENSE CANNOT BE A REQUIREMENT
+    // 13. PROFESSIONAL LICENSE KHÔNG THỂ LÀ REQUIREMENT
     // =====================================================
 
     function testProfessionalLicenseCannotBeRequiredQualification()
@@ -694,7 +694,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 14. NEGATIVE: ACCESS CONTROL (NON-ISSUER / OTHER PUBLISHER)
+    // 14. TIÊU CỰC: PHÂN QUYỀN (NON-ISSUER / PUBLISHER KHÁC)
     // =====================================================
 
     function testPublisherOtherThanIssuerCannotChangeLifecycle()
@@ -764,7 +764,7 @@ contract ProfessionalLicenseRegistryTest {
     }
 
     // =====================================================
-    // 15. NEGATIVE: DISALLOWED STATE TRANSITIONS & GUARDS
+    // 15. TIÊU CỰC: CHUYỂN TRẠNG THÁI BỊ CẤM VÀ ĐIỀU KIỆN BẢO VỆ
     // =====================================================
 
     function testDisallowedStateTransitions()
@@ -857,6 +857,256 @@ contract ProfessionalLicenseRegistryTest {
             nonExistentRevoke,
             false,
             "revokeLicense on non-existent license must revert"
+        );
+    }
+
+    // =====================================================
+    // 18. GỠ PUBLISHER VÀ MẤT QUYỀN SAU KHI GỠ
+    // =====================================================
+
+    function testPublisherRemoval()
+        public
+    {
+        _addresses();
+        ProfessionalLicenseRegistry registry = new ProfessionalLicenseRegistry();
+
+        // 1. Admin registers publisher
+        registry.registerPublisher(address(this));
+        Assert.equal(
+            registry.publishers(address(this)),
+            true,
+            "Publisher should be registered"
+        );
+
+        // Issue a license while active
+        uint256 licenseId = _issueQualification(registry);
+        Assert.equal(
+            licenseId,
+            uint256(1),
+            "License 1 issued successfully"
+        );
+
+        // 2. Admin removes publisher
+        registry.removePublisher(address(this));
+
+        // 3. Mapping publisher becomes false
+        Assert.equal(
+            registry.publishers(address(this)),
+            false,
+            "Publisher mapping should be false after removal"
+        );
+
+        // 4. Removed publisher cannot issue license
+        uint256[] memory noRequirements = new uint256[](0);
+        (bool issueSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.issueLicense.selector,
+                owner,
+                "New Qualification",
+                0,
+                noRequirements,
+                keccak256("new-qual-metadata")
+            )
+        );
+        Assert.equal(
+            issueSuccess,
+            false,
+            "Removed publisher must not be able to issue license"
+        );
+
+        // 5. Removed publisher cannot call lifecycle functions
+        (bool suspendSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.suspendLicense.selector,
+                licenseId
+            )
+        );
+        Assert.equal(
+            suspendSuccess,
+            false,
+            "Removed publisher must not be able to suspend license"
+        );
+
+        (bool restoreSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.restoreLicense.selector,
+                licenseId
+            )
+        );
+        Assert.equal(
+            restoreSuccess,
+            false,
+            "Removed publisher must not be able to restore license"
+        );
+
+        (bool revokeSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.revokeLicense.selector,
+                licenseId
+            )
+        );
+        Assert.equal(
+            revokeSuccess,
+            false,
+            "Removed publisher must not be able to revoke license"
+        );
+    }
+
+    // =====================================================
+    // 19. XÁC THỰC PUBLISHER (ĐỊA CHỈ ZERO, TRÙNG, CHƯA ĐĂNG KÝ)
+    // =====================================================
+
+    function testPublisherValidation()
+        public
+    {
+        _addresses();
+        ProfessionalLicenseRegistry registry = new ProfessionalLicenseRegistry();
+
+        // 1. registerPublisher(address(0)) must revert
+        (bool zeroAddrSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.registerPublisher.selector,
+                address(0)
+            )
+        );
+        Assert.equal(
+            zeroAddrSuccess,
+            false,
+            "registerPublisher(address(0)) must revert"
+        );
+
+        // 2. Register valid publisher
+        registry.registerPublisher(owner);
+        Assert.equal(
+            registry.publishers(owner),
+            true,
+            "Publisher owner should be registered"
+        );
+
+        // 3. Registering the same publisher a second time must revert
+        (bool duplicateSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.registerPublisher.selector,
+                owner
+            )
+        );
+        Assert.equal(
+            duplicateSuccess,
+            false,
+            "Registering already registered publisher must revert"
+        );
+
+        // 4. removePublisher with unregistered address must revert
+        (bool removeUnregisteredSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.removePublisher.selector,
+                otherOwner
+            )
+        );
+        Assert.equal(
+            removeUnregisteredSuccess,
+            false,
+            "removePublisher on unregistered address must revert"
+        );
+
+        // 5. removePublisher on address(0) must revert
+        (bool removeZeroSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.removePublisher.selector,
+                address(0)
+            )
+        );
+        Assert.equal(
+            removeZeroSuccess,
+            false,
+            "removePublisher on address(0) must revert"
+        );
+    }
+
+    // =====================================================
+    // 20. PHÂN QUYỀN ADMIN (NON-ADMIN KHÔNG QUẢN LÝ ĐƯỢC PUBLISHER)
+    // =====================================================
+
+    function testAdminAccessControl()
+        public
+    {
+        _addresses();
+        ProfessionalLicenseRegistry registry = new ProfessionalLicenseRegistry();
+
+        // Register owner as publisher by admin
+        registry.registerPublisher(owner);
+
+        // Create a non-admin caller
+        LifecycleCaller nonAdminCaller = new LifecycleCaller(registry, 0);
+
+        // Non-admin tries to register publisher -> REVERT
+        bool registerByNonAdmin = nonAdminCaller.tryRegisterPublisher(otherOwner);
+        Assert.equal(
+            registerByNonAdmin,
+            false,
+            "Non-admin caller must not be able to register publisher"
+        );
+        Assert.equal(
+            registry.publishers(otherOwner),
+            false,
+            "otherOwner must not be registered by non-admin"
+        );
+
+        // Non-admin tries to remove publisher -> REVERT
+        bool removeByNonAdmin = nonAdminCaller.tryRemovePublisher(owner);
+        Assert.equal(
+            removeByNonAdmin,
+            false,
+            "Non-admin caller must not be able to remove publisher"
+        );
+        Assert.equal(
+            registry.publishers(owner),
+            true,
+            "owner must remain publisher when non-admin tries to remove"
+        );
+    }
+
+    // =====================================================
+    // 21. XÁC THỰC ĐẦU VÀO CẤP LICENSE VÀ QUYỀN NON-PUBLISHER
+    // =====================================================
+
+    function testIssueInputValidation()
+        public
+    {
+        _addresses();
+        ProfessionalLicenseRegistry registry = _newRegistry();
+        uint256[] memory noRequirements = new uint256[](0);
+
+        // 1. Non-publisher caller calling issueLicense -> REVERT
+        LifecycleCaller nonPublisherCaller = new LifecycleCaller(registry, 0);
+        bool nonPublisherIssueSuccess = nonPublisherCaller.tryIssueLicense(
+            owner,
+            "Unauthorized Qualification",
+            0,
+            noRequirements,
+            keccak256("unauth-metadata")
+        );
+        Assert.equal(
+            nonPublisherIssueSuccess,
+            false,
+            "Non-publisher caller must not be able to issue license"
+        );
+
+        // 2. Publisher calling issueLicense with owner == address(0) -> REVERT
+        (bool zeroOwnerSuccess, ) = address(registry).call(
+            abi.encodeWithSelector(
+                registry.issueLicense.selector,
+                address(0),
+                "Zero Owner Qualification",
+                0,
+                noRequirements,
+                keccak256("zero-owner-metadata")
+            )
+        );
+        Assert.equal(
+            zeroOwnerSuccess,
+            false,
+            "issueLicense with owner == address(0) must revert"
         );
     }
 }

@@ -1,18 +1,19 @@
-1. Tổng kết đánh giá an toàn
+1. Tổng kết đánh giá bảo mật
 
-Smart Contract `ProfessionalLicenseRegistry` đã được nâng cấp toàn diện và kiểm chứng với:
-- 58/58 Unit Test Assertions: PASS (0 FAIL).
-- Static Analysis Review: Không phát hiện lỗ hổng nghiêm trọng.
-- E2E Lifecycle Simulation: 10/10 kịch bản đạt chuẩn.
-- Frontend Production Build: PASS (0 errors).
+Smart Contract `ProfessionalLicenseRegistry` đã được nâng cấp và kiểm chứng trong phạm vi MVP với:
+- 21/21 Remix Solidity Unit Test functions: PASS (0 FAIL).
+- Đánh giá phân tích tĩnh: Không phát hiện lỗ hổng nghiêm trọng.
+- Kiểm thử E2E người dùng: ĐÃ XÁC MINH (toàn bộ ca 0 đến ca 10 trên Sepolia Testnet).
+- Kiểm thử trên nhiều thiết bị: ĐÃ XÁC MINH (Ca 10 — Cross-Device Share / QR).
+- Build production frontend: ĐẠT (0 lỗi).
 
-2. Khẳng định bảo mật
+2. Khẳng định về bảo mật
 
 - Cơ chế Access Control kép ngăn chặn hoàn toàn việc thay đổi trạng thái trái phép.
 - Trạng thái `REVOKED` được bảo vệ như một Terminal State (không thể hồi sinh).
 - Trạng thái `SUSPENDED` cho phép đình chỉ tạm thời và khôi phục an toàn.
 - Kiểm tra tính toàn vẹn `metadataHash` bảo vệ khỏi việc giả mạo thông tin chứng chỉ off-chain.
-- Quét và xác thực Share/QR độc lập với bộ nhớ trình duyệt cục bộ (`sessionStorage`).
+- Chia sẻ/QR được thiết kế độc lập với bộ nhớ trình duyệt cục bộ (`localStorage`), kiểm thử Cross-device Ca 10 đã được xác minh thành công trên thiết bị di động.
 
 3. Phạm vi và Giới hạn
 

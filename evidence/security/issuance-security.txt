@@ -4,7 +4,7 @@
 
 Phần này sử dụng lại các kết quả unit test và authorization-negative test đã thực hiện, không tạo lại các test case đã có.
 
-2. Publisher authorization
+2. Phân quyền publisher
 
 Chức năng:
 issueLicense(...)
@@ -22,7 +22,7 @@ Trường hợp caller không có quyền publisher bị từ chối bằng tran
 Kết luận:
 Publisher authorization được kiểm soát trước thao tác phát hành.
 
-3. License issuance validation
+3. Xác thực phát hành License
 
 Các test liên quan:
 - Test issue qualification
@@ -40,7 +40,7 @@ unit-test-report.txt
 Kết luận:
 Các điều kiện cần thiết cho quá trình phát hành đã được kiểm chứng trong unit test.
 
-4. Requirement checks
+4. Kiểm tra requirement
 
 Test:
 Test requirement checks
@@ -51,7 +51,7 @@ PASS
 Kết luận:
 Requirement validation được thực hiện trong flow phát hành và đã được unit test kiểm chứng.
 
-5. Qualification và License linkage
+5. Liên kết Qualification và License
 
 Các test:
 - Test issue qualification
@@ -64,7 +64,7 @@ PASS
 Kết luận:
 Mối quan hệ qualification → License đã được kiểm chứng trong test.
 
-6. License lifecycle sau issuance
+6. Vòng đời License sau phát hành
 
 Các test:
 - Test qualification lifecycle affects license

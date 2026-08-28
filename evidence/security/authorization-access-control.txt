@@ -7,7 +7,7 @@
 - Admin: Quản lý đăng ký và thu hồi quyền Publisher (`registerPublisher`, `removePublisher`).
 - Publisher: Phát hành chứng chỉ (`issueLicense`) và quản lý vòng đời chứng chỉ do mình phát hành (`suspendLicense`, `restoreLicense`, `revokeLicense`).
 - Owner: Địa chỉ ví nhận chứng chỉ (không có quyền quản trị/phát hành).
-- Verifier: Bất kỳ địa chỉ ví nào (Public read/verify).
+- Người xác minh: Bất kỳ địa chỉ ví nào (đọc/xác minh công khai).
 
 3. Ràng buộc Access Control đối với Lifecycle
 
@@ -22,6 +22,6 @@ Bất kỳ trường hợp nào sau đây đều bị REVERT:
 - Publisher đã bị Admin gỡ quyền (`removePublisher`) gọi hàm lifecycle.
 - Thao tác trên license không tồn tại.
 
-4. Kết quả kiểm chứng
+4. Kết quả xác minh
 
-Tất cả các trường hợp tiêu cực (negative test cases) đã được kiểm chứng tự động và 100% đều REVERT đúng quy định.
+Tất cả các trường hợp tiêu cực đã được kiểm chứng tự động và 100% đều REVERT đúng quy định.

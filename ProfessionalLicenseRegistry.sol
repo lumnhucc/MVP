@@ -4,7 +4,7 @@ pragma solidity >=0.8.0 <0.9.0;
 contract ProfessionalLicenseRegistry {
 
     // =========================
-    // ENUMS
+    // KIỂU LIỆT KÊ
     // =========================
 
     enum Status {
@@ -14,7 +14,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // DATA MODEL
+    // MÔ HÌNH DỮ LIỆU
     // =========================
 
     struct License {
@@ -29,7 +29,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // STORAGE
+    // LƯU TRỮ
     // =========================
 
     // Một asset model duy nhất:
@@ -47,7 +47,7 @@ contract ProfessionalLicenseRegistry {
     uint256 private nextLicenseId = 1;
 
     // =========================
-    // CONSTRUCTOR
+    // HÀM KHỞI TẠO
     // =========================
 
     constructor() {
@@ -55,7 +55,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // EVENTS
+    // EVENT
     // =========================
 
     event LicenseIssued(
@@ -85,7 +85,7 @@ contract ProfessionalLicenseRegistry {
     );
 
     // =========================
-    // MODIFIERS
+    // BỘ ĐIỀU KIỆN
     // =========================
 
     modifier onlyAdmin() {
@@ -105,7 +105,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // PUBLISHER AUTHORIZATION
+    // PHÂN QUYỀN PUBLISHER
     // =========================
 
     function registerPublisher(
@@ -152,7 +152,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // ISSUE LICENSE
+    // CẤP LICENSE
     // =========================
 
     function issueLicense(
@@ -217,7 +217,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // QUALIFICATION CHECK
+    // KIỂM TRA QUALIFICATION
     // =========================
 
     // Qualification được xác định duy nhất bởi:
@@ -236,7 +236,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // REQUIREMENT CHECK
+    // KIỂM TRA REQUIREMENT
     // =========================
 
     function _checkRequirements(
@@ -294,7 +294,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // PRE-CHECK REQUIREMENTS
+    // KIỂM TRA TRƯỚC REQUIREMENT
     // =========================
 
     // Frontend có thể gọi view này trước khi
@@ -314,7 +314,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // LICENSE LIFECYCLE
+    // VÒNG ĐỜI LICENSE
     // =========================
 
     function suspendLicense(
@@ -428,7 +428,7 @@ contract ProfessionalLicenseRegistry {
     }
 
     // =========================
-    // LICENSE VERIFICATION
+    // XÁC MINH LICENSE
     // =========================
 
     function verifyLicense(

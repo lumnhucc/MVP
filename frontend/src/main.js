@@ -200,13 +200,13 @@ function renderHome() {
     return `<section class="card overview-card"><div class="card-head"><div class="card-icon">♜</div><div><h3>Admin Control Center</h3><p>Chỉ Admin mới thấy và sử dụng các chức năng quản trị publisher.</p></div></div>
       <div class="two-col-info"><div class="info-box"><div class="small">Admin của contract</div><div id="adminValue" class="value">Đang đọc...</div></div><div class="info-box"><div class="small">Ví hiện tại</div><div class="value">${esc(shortAddress(account))} · ADMIN</div></div></div>
       <div class="contract-large"><div class="small">Publisher authorization</div><div class="admin-check-row"><div><b>Publisher của ví hiện tại</b><div id="publisherCheck" class="muted-line">Đang kiểm tra...</div></div><a class="btn" href="#publishers">Quản lý Publisher →</a></div></div>
-      <div class="home-actions"><a href="#publishers" class="btn primary">♙ &nbsp; Cấp phép / gỡ Publisher</a><a href="#verify" class="btn">◇ &nbsp; Verify License</a></div>
+      <div class="home-actions"><a href="#publishers" class="btn primary">♙ &nbsp; Cấp/gỡ quyền Publisher</a><a href="#verify" class="btn">◇ &nbsp; Verify License</a></div>
     </section>`;
   }
 
   if (role === "publisher") {
-    return `<section class="card overview-card"><div class="card-head"><div class="card-icon orange">▤</div><div><h3>Publisher Workspace</h3><p>Ví hiện tại đã được Admin ủy quyền phát hành và quản lý license.</p></div></div>
-      <div class="two-col-info"><div class="info-box"><div class="small">Role</div><div class="value">PUBLISHER</div></div><div class="info-box"><div class="small">Issuer</div><div class="value">${esc(shortAddress(account))}</div></div></div>
+    return `<section class="card overview-card"><div class="card-head"><div class="card-icon orange">▤</div><div><h3>Khu vực Publisher</h3><p>Ví hiện tại đã được Admin ủy quyền phát hành và quản lý license.</p></div></div>
+      <div class="two-col-info"><div class="info-box"><div class="small">Quyền</div><div class="value">PUBLISHER</div></div><div class="info-box"><div class="small">Bên cấp</div><div class="value">${esc(shortAddress(account))}</div></div></div>
       <div class="home-actions"><a href="#license" class="btn issue-btn">▤ &nbsp; Issue / Lifecycle</a><a href="#verify" class="btn">◇ &nbsp; Verify License</a></div></section>
       ${renderLicenseList("issuer")}`;
   }
@@ -216,7 +216,7 @@ function renderHome() {
 }
 
 function renderLicenseList(filterMode = "all") {
-  const title = filterMode === "owner" ? "My Licenses" : filterMode === "issuer" ? "Danh sách License & Qualification" : "Danh sách License & Qualification";
+  const title = filterMode === "owner" ? "My Licenses" : "Danh sách License & Qualification";
   const subtitle = filterMode === "owner"
     ? "Chỉ hiển thị license có owner trùng với ví đang kết nối."
     : filterMode === "issuer"
@@ -242,7 +242,7 @@ function renderLicense() {
       <input id="issueExpiry" type="text" inputmode="numeric" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10">
       <label class="checkbox-row"><input id="issueNoExpiry" type="checkbox"><span>Không có thời hạn</span></label>
     </div><div class="wide"><label>Qualification IDs (cách nhau bằng dấu phẩy)</label><input id="issueQuals" placeholder="vd: 1,2,3"></div><div class="wide"><button id="issueBtn" class="btn issue-btn full">♙ &nbsp; Issue License</button></div></div><div id="issueResult" class="transaction-result">Transaction chưa thực hiện.</div></section>
-    <section class="card"><div class="card-head"><div class="card-icon purple">↻</div><div><h3>License Lifecycle</h3><p>Thay đổi trạng thái license (Chỉ Publisher đã phát hành license mới được thực hiện).</p></div></div>
+    <section class="card"><div class="card-head"><div class="card-icon purple">↻</div><div><h3>License Lifecycle</h3><p>Thay đổi trạng thái license (chỉ Publisher đã phát hành license mới được thực hiện).</p></div></div>
       <label>License ID</label><input id="lifeId" inputmode="numeric" placeholder="Nhập license ID">
       <div id="lifeGuardHint" class="muted-line" style="margin: 6px 0 10px; font-size: 12px;"></div>
       <div class="actions lifecycle-actions">
@@ -682,7 +682,7 @@ async function verifyLicense() {
     throw new Error("License ID phải là số nguyên dương.");
   }
   if (!isValidAddress(owner)) {
-    throw new Error("Owner address không hợp lệ.");
+    throw new Error("Địa chỉ chủ sở hữu không hợp lệ.");
   }
 
   const result = $("verifyResult");

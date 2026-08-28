@@ -4,13 +4,13 @@
 
 Phần này sử dụng lại các kết quả unit test đã thực hiện, không tạo lại các test case đã có.
 
-2. Requirement checks
+2. Kiểm tra requirement
 
-Test:
+Kiểm thử:
 Test requirement checks
 
 Kết quả:
-PASS
+ĐẠT
 
 Evidence:
 ProfessionalLicenseRegistry_test.sol
@@ -19,7 +19,7 @@ unit-test-report.txt
 Kết luận:
 Các requirement cần thiết cho flow phát hành đã được kiểm tra trước khi License được xử lý theo logic của contract.
 
-3. Multiple requirements
+3. Nhiều requirement
 
 Test:
 Test multiple requirements
@@ -36,7 +36,7 @@ Contract đã được kiểm chứng với trường hợp có nhiều requirem
 
 Điều này xác nhận logic xử lý nhiều requirement đã được kiểm thử trong phạm vi test case hiện có.
 
-4. Qualification verification
+4. Xác minh qualification
 
 Các test:
 - Test issue qualification
@@ -53,7 +53,7 @@ unit-test-report.txt
 Kết luận:
 Qualification được sử dụng trong flow kiểm tra trước/sau khi phát hành License đã được unit test kiểm chứng.
 
-5. Qualification lifecycle dependency
+5. Dependency theo vòng đời qualification
 
 Test:
 Test qualification lifecycle affects license
@@ -68,7 +68,7 @@ unit-test-report.txt
 Kết luận:
 Sự phụ thuộc giữa qualification lifecycle và trạng thái/hiệu lực của License đã được kiểm chứng.
 
-6. Qualification expiry dependency
+6. Dependency theo thời hạn qualification
 
 Test:
 Test qualification expiry
@@ -90,8 +90,8 @@ Các evidence hiện có chỉ cho phép đánh giá dependency ở mức logic 
 Chưa có evidence đủ để kết luận về:
 
 - Dependency của frontend/backend.
-- Dependency của external service hoặc oracle.
-- Package/library dependency ngoài source contract hiện tại.
+- Dependency của dịch vụ bên ngoài hoặc oracle.
+- Dependency của package/thư viện ngoài mã nguồn hợp đồng hiện tại.
 - Khả năng một external dependency bị thay đổi hoặc ngừng hoạt động.
 - Security của private key hoặc infrastructure vận hành publisher/admin.
 
@@ -109,4 +109,4 @@ Các dependency chính trong logic qualification → requirement → License đ�
 
 Không phát hiện lỗi trong các dependency logic được kiểm chứng bởi các test hiện có.
 
-Sử dụng lại unit-test evidence và không tạo lại test/evidence mới.
+Sử dụng lại bằng chứng unit test và không tạo lại test/bằng chứng mới.

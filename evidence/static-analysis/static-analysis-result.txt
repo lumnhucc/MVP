@@ -1,47 +1,48 @@
-STATIC ANALYSIS RESULT (CONTRACT V2)
+KẾT QUẢ PHÂN TÍCH TĨNH (HỢP ĐỒNG V2)
 =====================================
 
-PROJECT
--------
-Network: Ethereum Sepolia Testnet (Chain ID: 11155111)
-Contract: 0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37
-Deployment block: 11557021
-Deployment transaction: 0x795e492c90802447bd64ce0fc6d2003a0f115b90146fe632df9e74604341c58a
-Compiler: Solidity 0.8.34
-EVM version: Osaka
-Optimizer: Disabled
+DỰ ÁN
+-----
+Mạng: Ethereum Sepolia Testnet (Chain ID: 11155111)
+Hợp đồng: 0xddcd1fb5b165b5a73a970a2adbe4354d638e1f37
+Block triển khai: 11557021
+Giao dịch triển khai: 0x795e492c90802447bd64ce0fc6d2003a0f115b90146fe632df9e74604341c58a
+Trình biên dịch: Solidity 0.8.34
+Phiên bản EVM: Osaka
+Tối ưu hóa: Tắt
 
-TEST
-----
-Automated Unit Tests: 58/58 PASS
-Fail: 0
-Frontend build: PASS (Vite production build)
-
-FINDINGS
+KIỂM THỬ
 --------
+Kiểm thử đơn vị Solidity trên Remix: 21/21 hàm đạt
+Số lệnh Assert trong mã nguồn: 87 (đếm tĩnh; không phải tổng số thực thi độc lập)
+Không đạt: 0
+Build frontend: ĐẠT (bản build production Vite)
+
+PHÁT HIỆN
+---------
 1. block.timestamp
-   Assessment: used for issueDate, expiry comparison, and event timestamp
-   Status: ACCEPTED (drift limited to ~15s, acceptable for credential lifecycle)
+   Đánh giá: được dùng cho issueDate, so sánh expiry và timestamp của event
+   Trạng thái: CHẤP NHẬN (độ lệch giới hạn khoảng 15 giây, phù hợp với vòng đời chứng chỉ)
 
-2. Gas requirement / dynamic array
-   Assessment: loops over requiredQualificationIds in _checkRequirements
-   Status: ACCEPTED WITH LIMITATION (bounded for realistic qualification counts)
+2. Yêu cầu gas / mảng động
+   Đánh giá: lặp qua requiredQualificationIds trong _checkRequirements
+   Trạng thái: CHẤP NHẬN CÓ GIỚI HẠN (được giới hạn với số lượng qualification thực tế)
 
-3. Access Control / Double Check
-   Assessment: suspendLicense, restoreLicense, revokeLicense require msg.sender == license.issuer AND publishers[msg.sender]
-   Status: VERIFIED SECURE
+3. Kiểm soát quyền / kiểm tra kép
+   Đánh giá: suspendLicense, restoreLicense, revokeLicense yêu cầu msg.sender == license.issuer VÀ publishers[msg.sender]. Bằng chứng unit test bao phủ publisher bị gỡ quyền, non-publisher và non-issuer.
+   Trạng thái: ĐÃ XÁC MINH AN TOÀN
 
-4. Terminal State Protection
-   Assessment: REVOKED licenses cannot be restored or suspended under any circumstances
-   Status: VERIFIED SECURE
+4. Bảo vệ trạng thái kết thúc
+   Đánh giá: license REVOKED không thể được khôi phục hoặc tạm đình chỉ trong bất kỳ trường hợp nào
+   Trạng thái: ĐÃ XÁC MINH AN TOÀN
 
-5. Guard conditions
-   Assessment: strictly validates state transitions (ACTIVE -> SUSPENDED -> ACTIVE, ACTIVE/SUSPENDED -> REVOKED)
-   Status: VERIFIED SECURE
+5. Điều kiện bảo vệ
+   Đánh giá: xác thực chặt chẽ các chuyển đổi trạng thái (ACTIVE -> SUSPENDED -> ACTIVE, ACTIVE/SUSPENDED -> REVOKED). Bằng chứng unit test chưa có assertion chi tiết cho các trường của event.
+   Trạng thái: ĐÃ XÁC MINH AN TOÀN
 
-INTEGRATION STATUS
-------------------
-Contract deployment: VERIFIED
-Frontend integration: VERIFIED
-E2E user testing: NOT YET VERIFIED (Reserved for user)
-Cross-device testing: NOT YET VERIFIED (Reserved for user)
+TRẠNG THÁI TÍCH HỢP
+-------------------
+Triển khai hợp đồng: ĐÃ XÁC MINH
+Tích hợp frontend: ĐÃ XÁC MINH
+Kiểm thử E2E người dùng: ĐÃ XÁC MINH (toàn bộ ca 0 đến ca 10)
+Kiểm thử trên nhiều thiết bị: ĐÃ XÁC MINH (Ca 10 — Cross-Device Share / QR)
